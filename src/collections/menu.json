@@ -4,15 +4,19 @@
 		"url": "/"
 	},
 	{
-		"name": "Blog",
-		"url": "/blog"
+		"name": "About Us",
+		"url": "/about"
 	},
 	{
-		"name": "Design",
-		"url": "/design"
+		"name": "Our Services",
+		"url": "/features"
 	},
 	{
-		"name": "Elements",
-		"url": "/elements"
+		"name": "Pricing",
+		"url": "/pricing"
+	},
+	{
+		"name": "Get a Quote",
+		"url": "/contact"
 	}
 ]

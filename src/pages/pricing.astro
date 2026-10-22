@@ -1,0 +1,233 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import SectionHeader from "@/components/elements/SectionHeader.astro";
+import Button from "@/components/ui/Button.astro";
+import Badge from "@/components/ui/Badge.astro";
+import {
+	ArrowRight,
+	Banknote,
+	CheckCircle2,
+	Coins,
+	FileText,
+	HelpCircle,
+	Percent,
+	Scale,
+	ShieldCheck,
+	Sparkles,
+} from "@lucide/astro";
+
+const packages = [
+	{
+		name: "TroncMaster Only",
+		badge: "Independent Governance",
+		description: "For venues with an existing payroll bureau that need legal, independent TroncMaster oversight.",
+		price: "Fixed Fee",
+		priceSub: "Per month (tailored to staff headcount)",
+		highlight: false,
+		features: [
+			"100% Tips Act 2023 compliance",
+			"HMRC-compliant independent status",
+			"Zero % cut taken from your tips",
+			"Custom Tronc Agreement & ruleset",
+			"Class 1 NIC exemption governance",
+			"Annual compliance review & reporting",
+			"Direct communication with your existing bureau",
+		],
+		ctaText: "Get a Tronc Quote",
+		ctaUrl: "/contact?package=tronc",
+	},
+	{
+		name: "Combined Tronc & Payroll",
+		badge: "Most Popular & Cost-Effective",
+		description: "The complete single-bureau solution. Tronc and PAYE managed by one team under one fixed agreement.",
+		price: "All-in-One",
+		priceSub: "Bundled monthly fee with zero tip deductions",
+		highlight: true,
+		features: [
+			"Full Payroll Bureau + Independent TroncMaster",
+			"Single monthly data submission",
+			"Itemised digital payslips (Wages + Tronc)",
+			"Full RTI submissions & HMRC liaison",
+			"Auto-enrolment pension administration",
+			"Complete Tips Act 2023 protection",
+			"Guaranteed zero commission on tips",
+			"Dedicated Senior Payroll & Tronc Specialist",
+		],
+		ctaText: "Get a Combined Quote",
+		ctaUrl: "/contact?package=combined",
+	},
+	{
+		name: "Payroll Bureau Only",
+		badge: "Pure Hospitality Payroll",
+		description: "Specialist payroll processing for hospitality venues that do not operate a tronc scheme.",
+		price: "Per Payslip",
+		priceSub: "Transparent tiered per-employee rates",
+		highlight: false,
+		features: [
+			"Standard hospitality PAYE management",
+			"Weekly, fortnightly, or monthly pay runs",
+			"HMRC RTI filing & Year-End submissions",
+			"Pension auto-enrolment management",
+			"Secure employee cloud payslip portal",
+			"National Minimum Wage rate checks",
+			"New starters, leavers, and P45 processing",
+		],
+		ctaText: "Get a Payroll Quote",
+		ctaUrl: "/contact?package=payroll",
+	},
+];
+
+const faqs = [
+	{
+		q: "Why do you charge a fixed fee instead of a percentage of tips?",
+		a: "Traditional tronc operators charge 1% to 3% of your total tip pool. We believe that tips belong to your staff, not an administrative middleman. Our workload does not quadruple simply because your restaurant had a busy month, so our fee stays fixed and transparent.",
+	},
+	{
+		q: "How does having an independent TroncMaster save National Insurance?",
+		a: "Under UK tax law, tips distributed through an independent TroncMaster are exempt from both Employer National Insurance (13.8%) and Employee National Insurance (8%). Because TroncPAYE acts as an independent entity outside employer direction, your scheme meets full HMRC statutory criteria.",
+	},
+	{
+		q: "How does the Employment (Allocation of Tips) Act 2023 affect my venue?",
+		a: "The legislation requires 100% of tips, gratuities, and service charges to be passed to staff without unlawful deductions, distributed according to a clear, fair written policy. Having TroncPAYE oversee your distribution guarantees full audit compliance.",
+	},
+	{
+		q: "Can you take over from our current payroll provider or TroncMaster mid-year?",
+		a: "Yes, seamlessly. We coordinate the transfer of your year-to-date payroll data and tronc rules with zero disruption to your payroll cycle or your staff's pay dates.",
+	},
+];
+---
+
+<Layout
+	title="Pricing & Packages | TroncPAYE"
+	description="Transparent, fixed monthly fees for independent TroncMaster services and payroll bureau management. No percentage cuts from tips."
+	keywords="tronc pricing, restaurant payroll cost, fixed fee troncmaster, hospitality payroll fees"
+>
+	<!-- Page Header -->
+	<section class="site-container pt-16 pb-12 text-center md:pt-24 md:pb-16">
+		<div class="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-semibold text-primary">
+			<Percent class="h-3.5 w-3.5" /> Transparent Pricing
+		</div>
+		<h1 class="mx-auto mb-4 max-w-3xl text-4xl font-extrabold tracking-tight md:text-5xl lg:text-6xl text-neutral-900 dark:text-white">
+			Fixed Monthly Fees. <span class="text-primary">0% Deducted from Tips.</span>
+		</h1>
+		<p class="mx-auto max-w-2xl text-base md:text-lg text-neutral-600 dark:text-neutral-300">
+			No hidden costs, no commission cuts on your team's gratuities, and no surprises. Choose the package that suits your operational model.
+		</p>
+	</section>
+
+	<!-- Pricing Cards Grid -->
+	<section class="site-container py-8 md:py-12">
+		<div class="grid gap-8 lg:grid-cols-3">
+			{packages.map((pkg) => (
+				<div
+					class:list={[
+						"relative flex flex-col justify-between rounded-2xl border p-8 shadow-sm transition-all duration-300",
+						pkg.highlight
+							? "border-primary bg-primary/[0.03] ring-2 ring-primary dark:border-primary dark:bg-primary/10 shadow-md"
+							: "border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900",
+					]}
+				>
+					{pkg.highlight && (
+						<div class="absolute -top-3.5 left-1/2 -translate-x-1/2">
+							<span class="whitespace-nowrap rounded-full bg-primary px-3.5 py-1 text-xs font-bold text-white shadow-sm">
+								{pkg.badge}
+							</span>
+						</div>
+					)}
+
+					<div>
+						{!pkg.highlight && (
+							<span class="inline-block rounded-md bg-neutral-100 px-2.5 py-1 text-xs font-semibold text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 mb-3">
+								{pkg.badge}
+							</span>
+						)}
+						<h2 class="text-2xl font-bold text-neutral-900 dark:text-white">{pkg.name}</h2>
+						<p class="mt-2 text-xs leading-relaxed text-neutral-600 dark:text-neutral-400 min-h-[36px]">
+							{pkg.description}
+						</p>
+
+						<div class="my-6 border-y border-neutral-100 py-4 dark:border-neutral-800">
+							<span class="text-3xl font-extrabold text-neutral-900 dark:text-white">{pkg.price}</span>
+							<p class="mt-1 text-xs text-neutral-500 dark:text-neutral-400">{pkg.priceSub}</p>
+						</div>
+
+						<ul class="space-y-3 mb-8">
+							{pkg.features.map((item) => (
+								<li class="flex items-start gap-2.5 text-xs text-neutral-700 dark:text-neutral-300">
+									<CheckCircle2 class="h-4 w-4 flex-none text-primary mt-0.5" />
+									<span>{item}</span>
+								</li>
+							))}
+						</ul>
+					</div>
+
+					<Button
+						url={pkg.ctaUrl}
+						type={pkg.highlight ? "fill" : "outline"}
+						className="w-full justify-center text-center"
+					>
+						{pkg.ctaText} <ArrowRight size={14} />
+					</Button>
+				</div>
+			))}
+		</div>
+	</section>
+
+	<!-- Comparison Savings Callout -->
+	<section class="site-container py-12 md:py-16">
+		<div class="rounded-2xl border border-primary/20 bg-primary/5 p-8 dark:bg-primary/10 md:p-12">
+			<div class="grid items-center gap-8 md:grid-cols-[1.2fr_0.8fr]">
+				<div>
+					<h3 class="text-2xl font-bold text-neutral-900 dark:text-white md:text-3xl">
+						Calculate What Percentage-Based Operators Are Costing You
+					</h3>
+					<p class="mt-3 text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
+						If your restaurant or bar processes £20,000 in monthly tips and service charges, a traditional Tronc operator taking 2% charges you <strong>£400 every month (£4,800 a year)</strong> simply to run a formula.
+					</p>
+					<p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
+						With TroncPAYE, your administration cost remains fixed regardless of whether your tips double during the holidays.
+					</p>
+				</div>
+				<div class="text-center md:text-right">
+					<Button url="/contact" type="fill">
+						Request a Savings Analysis <ArrowRight size={16} />
+					</Button>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- FAQ Section -->
+	<section class="site-container py-12 md:py-20">
+		<SectionHeader
+			title="Frequently Asked Questions"
+			description="Common questions about our fixed fees, the Tips Act 2023, and combining your schemes."
+		/>
+		<div class="mt-10 grid gap-6 md:grid-cols-2 max-w-4xl mx-auto">
+			{faqs.map((faq) => (
+				<div class="rounded-xl border border-neutral-200/80 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-900">
+					<h4 class="mb-2 text-base font-bold text-neutral-900 dark:text-white flex items-start gap-2">
+						<HelpCircle class="h-5 w-5 text-primary flex-none mt-0.5" />
+						<span>{faq.q}</span>
+					</h4>
+					<p class="text-xs leading-relaxed text-neutral-600 dark:text-neutral-400 pl-7">{faq.a}</p>
+				</div>
+			))}
+		</div>
+	</section>
+
+	<!-- Final CTA -->
+	<section class="site-container pb-16 md:pb-24">
+		<div class="rounded-2xl bg-primary p-8 text-center text-white md:p-12">
+			<h2 class="text-2xl font-extrabold md:text-3xl">Get a Tailored Quote in 24 Hours</h2>
+			<p class="mt-2 text-white/80 max-w-xl mx-auto text-sm">
+				Tell us your headcount and current setup. We will provide an exact, itemised fixed monthly quote with zero obligation.
+			</p>
+			<div class="mt-6 flex justify-center">
+				<Button url="/contact" type="outline">
+					Get in Touch Now <ArrowRight size={16} />
+				</Button>
+			</div>
+		</div>
+	</section>
+</Layout>

@@ -1,8 +1,8 @@
-const SITE_URL = import.meta.env.PUBLIC_SITE_URL || "https://ricoui-astro-starter.vercel.app";
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || "https://troncpaye.co.uk";
 
 export const siteConfig = {
-	title: "Design-led Astro Starter",
-	author: "",
+	title: "TroncPAYE | TroncMaster & Payroll Bureau Combined",
+	author: "TroncPAYE",
 	url: SITE_URL,
 	utm: {
 		source: SITE_URL,
@@ -10,15 +10,22 @@ export const siteConfig = {
 		campaign: "navigation",
 	},
 	meta: {
-		title: "Design-led Astro Starter - Astro 7 template",
+		title: "TroncPAYE | Tronc and payroll, perfectly in sync.",
 		description:
-			"A generic Astro 7 starter for design-driven sites, with Blog, DESIGN.md, Elements, Tailwind CSS v4, MDX, and a reusable theme system.",
+			"Merge your TroncMaster and Payroll Provider into one seamless bureau. Cut the traditional percentage-based fees, eliminate double admin, and remain 100% Tips Act compliant.",
 		keywords:
-			"astro starter, astro 7 template, design system, tailwind css, mdx blog, website theme",
+			"troncmaster, hospitality payroll, tronc scheme, payroll bureau, tips act compliance, tronc paye, restaurant payroll",
 		image: `${SITE_URL}/assets/preview.jpg`,
-		twitterHandle: "",
+		twitterHandle: "@TroncPAYE",
 	},
 	social: {
-		github: "https://github.com/ricocc/ricoui-astro-starter",
+		linkedin: "https://www.linkedin.com/company/troncpaye",
+		x: "https://x.com/TroncPAYE",
+		facebook: "https://www.facebook.com/TroncPAYE",
+		instagram: "https://www.instagram.com/TroncPAYE",
+	},
+	contact: {
+		email: "info@troncpaye.co.uk",
+		phone: "", // Add your phone number here
 	},
 };
