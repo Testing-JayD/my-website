@@ -124,3 +124,50 @@ const menuItems = menus as MenuItem[];
     </nav>
   </div>
 </header>
+<style>
+  #site-container {
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    -webkit-backdrop-filter: blur(0);
+    backdrop-filter: blur(0);
+  }
+
+  #site-container.is-scrolled {
+   background-color: rgba(255, 255, 255, 0.97);
+    border-color: rgba(45, 109, 195, 0.12);
+    box-shadow: 0 8px 24px rgba(16, 22, 31, 0.08);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-radius: 1rem;
+  }
+
+  :global(html.dark) #site-container.is-scrolled {
+    background-color: rgba(15, 27, 45, 0.97);
+    border-color: rgba(197, 206, 219, 0.12);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #site-container {
+      transition: none !important;
+    }
+  }
+</style>
+
+<script>
+  const siteContainer = document.getElementById("site-container");
+
+  function updateHeaderBackground() {
+    siteContainer?.classList.toggle(
+      "is-scrolled",
+      window.scrollY > 24
+    );
+  }
+
+  updateHeaderBackground();
+
+  window.addEventListener("scroll", updateHeaderBackground, {
+    passive: true,
+  });
+</script>
