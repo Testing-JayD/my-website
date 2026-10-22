@@ -11,9 +11,10 @@ This file is the living, single source of truth for the TroncPAYE website projec
 - **Target Audience:** Restaurants, bars, hotels, pubs, and hospitality groups in the United Kingdom.
 - **Tagline:** "Tronc and payroll, perfectly in sync."
 - **Core Value Proposition:**
-  - Traditional setups require hiring two separate vendors: an external TroncMaster (who often takes an aggressive 1%–3% commission of all tips and service charges) and a separate payroll bureau.
+  - Traditional setups require hiring two separate vendors: an external TroncMaster (who often takes an aggressive 1%–4% commission of all tips and service charges) and a separate payroll bureau.
   - TroncPAYE eliminates this double admin by merging **independent TroncMaster oversight** and **hospitality payroll bureau management** under one roof.
   - **Fixed Monthly Fee Guarantee:** Tronc administration is billed as a flat, transparent monthly fee. Zero percentage cuts are taken from staff tips regardless of tip volume fluctuations.
+  - **12 Equal Monthly Instalments:** All payroll and tronc services are banded and invoiced in 12 equal monthly instalments, providing steady cash flow forecasting.
   - **HMRC & Legal Compliance:** Full compliance with the **Employment (Allocation of Tips) Act 2023** and Code of Practice. Legitimate Class 1 National Insurance Contribution (NIC) exemptions (saving up to 13.8% Employer NI and 8% Employee NI on tips).
 - **Contact Details:**
   - Email: `info@troncpaye.co.uk`
@@ -22,7 +23,41 @@ This file is the living, single source of truth for the TroncPAYE website projec
 
 ---
 
-## 2. Brand Identity & Design System
+## 2. Pricing & Calculator Architecture
+
+The Pricing page (`src/pages/pricing.astro`) includes a client-side calculator with a 3-folder tab interface:
+
+### 1. Calculation Modes (Tabs):
+- **Tronc Master:** Calculates fixed Tronc administration fees only.
+- **Tronc & PAYE:** Calculates the combined unified bureau fee (PAYE + Tronc).
+- **PAYE Only:** Calculates pure hospitality payroll bureau fees.
+
+### 2. Pricing Matrices:
+- **PAYE Bureau Rates (per pay run):**
+  - Band 1–4 Employees: Weekly £20, Fortnightly £25, 4-Weekly £30, Monthly £30
+  - Band 5–10 Employees: Weekly £25, Fortnightly £30, 4-Weekly £40, Monthly £40
+  - Band 11–49 Employees: Base (5–10) + £3 per additional payslip per run
+  - 50+ Employees: Triggers dedicated enterprise custom quote view
+- **Tronc Administration Rates (per pay run):**
+  - Band 1–4 Employees: Weekly £10, Fortnightly £12.50, 4-Weekly £15, Monthly £15
+  - Band 5–10 Employees: Weekly £12.50, Fortnightly £15, 4-Weekly £20, Monthly £20
+  - Band 11–49 Employees: Base (5–10) + £1.50 per additional payslip per run
+- **Annualised Instalment Formula:**
+  - `Monthly Instalment = (Fee Per Run × Annual Pay Runs) / 12`
+  - Annual Pay Runs: Weekly (52), Fortnightly (26), Four-Weekly (13), Monthly (12).
+- **Additional Service Fees:**
+  - Setup fee: £75–£100 one-off based on complexity.
+  - Year-end processing & P60s: £2 per employee (minimum charge £35).
+  - All fees net of VAT.
+
+### 3. Savings Comparison (Tronc Master & Combined):
+- Tip Slider: £500 to £50,000 per period.
+- Benchmarks against traditional **4% tip commission operators**.
+- Computes and displays dynamic **Estimated Annual Savings** (`Save £X / yr`).
+
+---
+
+## 3. Brand Identity & Design System
 
 - **Primary Colors:**
   - Primary Brand Blue: `#1a3fa0` (`--color-primary`)
@@ -48,20 +83,20 @@ This file is the living, single source of truth for the TroncPAYE website projec
 
 ---
 
-## 3. Website Structure & Routes
+## 4. Website Structure & Routes
 
 | Route | Page | Purpose & Current State |
 | --- | --- | --- |
 | `/` | Home (`src/pages/index.astro`) | **Complete:** Hero with value breakdown, 4 core value pillars, comparison vs traditional operators, 4-step workflow, lead capture banner. |
 | `/features` | Our Services (`src/pages/features.astro`) | **Complete:** Deep dive into 3 offerings: Independent TroncMastery, Hospitality Payroll Bureau, and the Combined Single-Bureau Scheme. |
-| `/pricing` | Pricing & Packages (`src/pages/pricing.astro`) | **Complete:** 3 tiered packages (TroncMaster Only, Combined Tronc & Payroll with nowrap badge, Payroll Bureau Only), savings comparison vs 2% commission operators, FAQ, and quote CTA. |
+| `/pricing` | Pricing & Packages (`src/pages/pricing.astro`) | **Complete:** 3-tier folder-tab calculator (headcount slider, pay frequency, tips savings slider against 4% operators), 3 summary package cards, FAQ, and quote CTA. |
 | `/about` | About Us (`src/pages/about.astro`) | **Complete:** The story behind TroncPAYE, three-stage evolution, four operational principles, Tips Act 2023 legal compliance overview, and partner CTA. |
 | `/contact` | Get a Quote / Contact (`src/pages/contact.astro`) | **Complete:** Direct contact information, SLA response time, and an interactive lead capture form gathering headcount, service requirements, and venue notes. |
 | `/blog` | Blog (`src/pages/blog`) | **Hidden:** Disabled from primary navigation (`menu.json`). No immediate blog posts needed. |
 
 ---
 
-## 4. Navigation Architecture
+## 5. Navigation Architecture
 
 Configured in `src/collections/menu.json`:
 1. `Home` (`/`)
@@ -72,7 +107,7 @@ Configured in `src/collections/menu.json`:
 
 ---
 
-## 5. Technical Architecture
+## 6. Technical Architecture
 
 - **Framework:** Astro 5.15 / Astro 7 compatible static site.
 - **Styling:** Tailwind CSS v4 with `@tailwindcss/vite` and CSS custom properties defined in `src/styles/global.css`.
@@ -87,7 +122,7 @@ Configured in `src/collections/menu.json`:
 
 ---
 
-## 6. Project Status & Outstanding Work
+## 7. Project Status & Outstanding Work
 
 ### Completed:
 - [x] Initialized and configured GitHub Codespaces.
@@ -97,12 +132,12 @@ Configured in `src/collections/menu.json`:
 - [x] Full custom rewrite of Homepage (`src/pages/index.astro` and `src/components/home/HeroSection.astro`).
 - [x] Full custom rewrite of Services (`src/pages/features.astro`).
 - [x] Full custom rewrite of Pricing (`src/pages/pricing.astro`).
-- [x] Fixed badge line-wrapping in `src/pages/pricing.astro` with `whitespace-nowrap`.
+- [x] Implemented interactive 3-tier folder-tab calculator with headcount slider, pay frequency selector, 12 equal monthly instalments, and traditional 4% operator savings comparisons.
 - [x] Full custom rewrite of About Us (`src/pages/about.astro`).
 - [x] Full custom rewrite of Contact / Quote page with lead form (`src/pages/contact.astro`).
 - [x] Created and maintained `PROJECT_CONTEXT.md` knowledge base.
 
 ### Outstanding:
 - [ ] Review and clean up unused demo routes (`/design`, `/elements`, `/sign-in`, `/sign-up`, `/signin`, `/signup`) to streamline production build.
-- [ ] Integrate form submission handler (e.g. Formspree, Netlify Forms, or custom API route) for `src/pages/contact.astro` when ready.
-- [ ] Add real company phone number and registered company address to footer and contact cards once finalized.
+- [ ] Connect contact form in `src/pages/contact.astro` to an active form submission endpoint (e.g. Formspree, Netlify Forms, or email API).
+- [ ] Insert official company registration number and telephone number once available.

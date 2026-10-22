@@ -6,14 +6,18 @@ import Badge from "@/components/ui/Badge.astro";
 import {
 	ArrowRight,
 	Banknote,
+	Calculator,
 	CheckCircle2,
 	Coins,
 	FileText,
 	HelpCircle,
+	Info,
 	Percent,
+	PiggyBank,
 	Scale,
 	ShieldCheck,
 	Sparkles,
+	TrendingDown,
 } from "@lucide/astro";
 
 const packages = [
@@ -80,44 +84,265 @@ const packages = [
 const faqs = [
 	{
 		q: "Why do you charge a fixed fee instead of a percentage of tips?",
-		a: "Traditional tronc operators charge 1% to 3% of your total tip pool. We believe that tips belong to your staff, not an administrative middleman. Our workload does not quadruple simply because your restaurant had a busy month, so our fee stays fixed and transparent.",
+		a: "Traditional tronc operators charge 1% to 4% of your total tip pool. We believe tips belong to your staff, not an administrative third party. Our workload does not quadruple simply because your venue had a busy month, so our fee stays fixed and transparent.",
+	},
+	{
+		q: "How does 12 equal monthly instalments billing work?",
+		a: "Regardless of whether your staff are paid weekly (52 runs), fortnightly (26 runs), or monthly (12 runs), we total your annual fee and divide it into 12 equal monthly instalments. Your cash flow remains predictable every single month.",
 	},
 	{
 		q: "How does having an independent TroncMaster save National Insurance?",
-		a: "Under UK tax law, tips distributed through an independent TroncMaster are exempt from both Employer National Insurance (13.8%) and Employee National Insurance (8%). Because TroncPAYE acts as an independent entity outside employer direction, your scheme meets full HMRC statutory criteria.",
+		a: "Under UK tax law, tips distributed through an independent TroncMaster are exempt from both Employer National Insurance (13.8%) and Employee National Insurance (8%). Because TroncPAYE acts independently without employer direction, your scheme meets full statutory HMRC criteria.",
 	},
 	{
-		q: "How does the Employment (Allocation of Tips) Act 2023 affect my venue?",
-		a: "The legislation requires 100% of tips, gratuities, and service charges to be passed to staff without unlawful deductions, distributed according to a clear, fair written policy. Having TroncPAYE oversee your distribution guarantees full audit compliance.",
-	},
-	{
-		q: "Can you take over from our current payroll provider or TroncMaster mid-year?",
-		a: "Yes, seamlessly. We coordinate the transfer of your year-to-date payroll data and tronc rules with zero disruption to your payroll cycle or your staff's pay dates.",
+		q: "What are the setup and year-end processing fees?",
+		a: "We charge a one-off setup fee of £75–£100 depending on complexity. Year-end processing and P60 production is charged at £2 per employee (minimum charge £35). All prices are net of VAT.",
 	},
 ];
 ---
 
 <Layout
-	title="Pricing & Packages | TroncPAYE"
-	description="Transparent, fixed monthly fees for independent TroncMaster services and payroll bureau management. No percentage cuts from tips."
-	keywords="tronc pricing, restaurant payroll cost, fixed fee troncmaster, hospitality payroll fees"
+	title="Pricing & Fee Calculator | TroncPAYE"
+	description="Calculate your fixed monthly payroll and tronc administration fee. See how much you save compared to 4% commission operators."
+	keywords="tronc calculator, payroll cost calculator, fixed fee troncmaster, hospitality payroll fees"
 >
 	<!-- Page Header -->
-	<section class="site-container pt-16 pb-12 text-center md:pt-24 md:pb-16">
+	<section class="site-container pt-16 pb-10 text-center md:pt-24 md:pb-12">
 		<div class="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-semibold text-primary">
-			<Percent class="h-3.5 w-3.5" /> Transparent Pricing
+			<Calculator class="h-3.5 w-3.5" /> Interactive Fee Estimator
 		</div>
 		<h1 class="mx-auto mb-4 max-w-3xl text-4xl font-extrabold tracking-tight md:text-5xl lg:text-6xl text-neutral-900 dark:text-white">
-			Fixed Monthly Fees. <span class="text-primary">0% Deducted from Tips.</span>
+			Transparent Pricing. <span class="text-primary">Instant Estimate.</span>
 		</h1>
 		<p class="mx-auto max-w-2xl text-base md:text-lg text-neutral-600 dark:text-neutral-300">
-			No hidden costs, no commission cuts on your team's gratuities, and no surprises. Choose the package that suits your operational model.
+			Billed in 12 equal monthly instalments with 0% deducted from your team's tips. Use our interactive calculator below to see your fees and estimated savings.
 		</p>
 	</section>
 
-	<!-- Pricing Cards Grid -->
-	<section class="site-container py-8 md:py-12">
-		<div class="grid gap-8 lg:grid-cols-3">
+	<!-- =============================================
+	     INTERACTIVE CALCULATOR COMPONENT
+	     ============================================= -->
+	<section class="site-container py-6 md:py-10">
+		<div class="mx-auto max-w-5xl">
+			
+			<!-- Folder-like Tabs -->
+			<div class="flex flex-wrap border-b border-neutral-300 dark:border-neutral-700 gap-1 sm:gap-2">
+				<button
+					id="tab-tronc"
+					class="calc-tab relative rounded-t-xl px-5 py-3.5 text-xs sm:text-sm font-bold transition-all border-t border-x border-transparent hover:text-primary"
+					data-tier="tronc"
+				>
+					<span class="flex items-center gap-2">
+						<Scale class="h-4 w-4" /> Tronc Master
+					</span>
+				</button>
+				<button
+					id="tab-combined"
+					class="calc-tab active relative rounded-t-xl px-5 py-3.5 text-xs sm:text-sm font-bold transition-all border-t border-x border-transparent hover:text-primary"
+					data-tier="combined"
+				>
+					<span class="flex items-center gap-2">
+						<Sparkles class="h-4 w-4 text-amber-500" /> Tronc & PAYE <span class="hidden sm:inline text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-primary/10 text-primary">Recommended</span>
+					</span>
+				</button>
+				<button
+					id="tab-paye"
+					class="calc-tab relative rounded-t-xl px-5 py-3.5 text-xs sm:text-sm font-bold transition-all border-t border-x border-transparent hover:text-primary"
+					data-tier="paye"
+				>
+					<span class="flex items-center gap-2">
+						<Banknote class="h-4 w-4" /> PAYE Only
+					</span>
+				</button>
+			</div>
+
+			<!-- Main Calculator Card Body -->
+			<div class="rounded-b-2xl rounded-tr-2xl border border-neutral-200/90 bg-white p-6 shadow-md dark:border-neutral-800 dark:bg-neutral-900 md:p-10 -mt-[1px]">
+				<div class="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+					
+					<!-- Left: Inputs -->
+					<div class="space-y-7">
+						<!-- Tier Description Banner -->
+						<div class="rounded-xl border border-primary/20 bg-primary/5 p-4 text-xs leading-relaxed text-neutral-700 dark:bg-primary/10 dark:text-neutral-300" id="tier-desc">
+							<!-- Dynamic text injected by JS -->
+						</div>
+
+						<!-- Input 1: Headcount Slider -->
+						<div>
+							<div class="flex items-center justify-between mb-2">
+								<label for="employee-slider" class="text-sm font-bold text-neutral-900 dark:text-white">
+									Number of Employees
+								</label>
+								<span id="employee-count-badge" class="rounded-lg bg-primary px-3 py-1 text-sm font-extrabold text-white">
+									12 Employees
+								</span>
+							</div>
+							<input
+								type="range"
+								id="employee-slider"
+								min="1"
+								max="50"
+								value="12"
+								class="w-full h-2.5 bg-neutral-200 rounded-lg appearance-none cursor-pointer accent-primary dark:bg-neutral-700"
+							/>
+							<div class="flex justify-between text-[11px] text-neutral-500 mt-1.5 font-mono">
+								<span>1 (Micro)</span>
+								<span>10</span>
+								<span>25</span>
+								<span>50+ (Custom)</span>
+							</div>
+						</div>
+
+						<!-- Input 2: Pay Frequency Selection -->
+						<div>
+							<label class="block text-sm font-bold text-neutral-900 dark:text-white mb-2">
+								Pay Frequency
+							</label>
+							<div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+								<button type="button" class="freq-btn rounded-lg border border-neutral-300 py-2.5 px-3 text-xs font-semibold transition-all hover:border-primary active" data-freq="weekly" data-runs="52">
+									Weekly (52 runs)
+								</button>
+								<button type="button" class="freq-btn rounded-lg border border-neutral-300 py-2.5 px-3 text-xs font-semibold transition-all hover:border-primary" data-freq="fortnightly" data-runs="26">
+									Fortnightly (26 runs)
+								</button>
+								<button type="button" class="freq-btn rounded-lg border border-neutral-300 py-2.5 px-3 text-xs font-semibold transition-all hover:border-primary" data-freq="four-weekly" data-runs="13">
+									Four-Weekly (13 runs)
+								</button>
+								<button type="button" class="freq-btn rounded-lg border border-neutral-300 py-2.5 px-3 text-xs font-semibold transition-all hover:border-primary" data-freq="monthly" data-runs="12">
+									Monthly (12 runs)
+								</button>
+								<button type="button" class="freq-btn col-span-2 sm:col-span-2 rounded-lg border border-dashed border-primary/40 bg-primary/5 py-2.5 px-3 text-xs font-semibold text-primary transition-all hover:bg-primary/10" data-freq="combination">
+									Combination (e.g. Weekly + Monthly)
+								</button>
+							</div>
+						</div>
+
+						<!-- Input 3: Tips per period slider (Only on Tronc Master & Tronc & PAYE) -->
+						<div id="tips-container" class="border-t border-neutral-200/80 pt-6 dark:border-neutral-800">
+							<div class="flex items-center justify-between mb-2">
+								<div>
+									<label for="tips-slider" class="text-sm font-bold text-neutral-900 dark:text-white flex items-center gap-1.5">
+										<Coins class="h-4 w-4 text-amber-500" /> Card Tips & Service Charge per Pay Period
+									</label>
+									<p class="text-[11px] text-neutral-500 dark:text-neutral-400">Used to compare against 4% commission operators</p>
+								</div>
+								<span id="tips-badge" class="rounded-lg bg-amber-500/10 border border-amber-500/30 px-3 py-1 text-sm font-extrabold text-amber-600 dark:text-amber-400">
+									£4,000 / period
+								</span>
+							</div>
+							<input
+								type="range"
+								id="tips-slider"
+								min="500"
+								max="50000"
+								step="500"
+								value="4000"
+								class="w-full h-2.5 bg-neutral-200 rounded-lg appearance-none cursor-pointer accent-amber-500 dark:bg-neutral-700"
+							/>
+							<div class="flex justify-between text-[11px] text-neutral-500 mt-1.5 font-mono">
+								<span>£500</span>
+								<span>£10,000</span>
+								<span>£25,000</span>
+								<span>£50,000+</span>
+							</div>
+						</div>
+
+					</div>
+
+					<!-- Right: Calculated Results Box -->
+					<div class="flex flex-col justify-between rounded-xl border border-neutral-200 bg-neutral-50/70 p-6 dark:border-neutral-800 dark:bg-neutral-800/40">
+						
+						<!-- Normal Calculation View -->
+						<div id="calc-result-normal">
+							<p class="text-xs uppercase font-bold tracking-wider text-primary">Your Estimated Fee</p>
+							
+							<div class="mt-4 flex items-baseline gap-2">
+								<span id="monthly-fee-display" class="text-4xl sm:text-5xl font-extrabold text-neutral-900 dark:text-white">
+									£0.00
+								</span>
+								<span class="text-sm font-semibold text-neutral-500">/ month</span>
+							</div>
+							<p class="text-xs text-neutral-500 mt-1">
+								Billed in 12 equal monthly instalments (<span id="per-run-display" class="font-bold text-neutral-700 dark:text-neutral-300">£0.00</span> per pay run)
+							</p>
+
+							<!-- Dynamic Breakdown List -->
+							<div class="mt-6 space-y-2 border-t border-neutral-200 pt-4 text-xs dark:border-neutral-700" id="calc-breakdown">
+								<!-- Populated dynamically by JS -->
+							</div>
+
+							<!-- Savings Card (If Tronc or Combined) -->
+							<div id="savings-box" class="mt-6 rounded-xl border border-emerald-300 bg-emerald-50/90 p-4 dark:border-emerald-800 dark:bg-emerald-950/40">
+								<div class="flex items-center gap-2 text-emerald-800 dark:text-emerald-300 font-bold text-xs">
+									<TrendingDown class="h-4 w-4" /> Traditional 4% Operator Comparison
+								</div>
+								<div class="mt-2 flex items-baseline justify-between">
+									<span class="text-xs text-neutral-600 dark:text-neutral-400">Traditional 4% fee:</span>
+									<span id="trad-fee-display" class="font-bold text-rose-600 dark:text-rose-400 text-xs line-through">£0.00 / mo</span>
+								</div>
+								<div class="mt-1 flex items-baseline justify-between border-t border-emerald-200/60 pt-2 dark:border-emerald-900/60">
+									<span class="text-xs font-bold text-emerald-900 dark:text-emerald-200">Your Estimated Savings:</span>
+									<span id="annual-savings-display" class="text-base font-extrabold text-emerald-600 dark:text-emerald-400">Save £0 / yr</span>
+								</div>
+							</div>
+
+							<!-- Additional Services & VAT note -->
+							<div class="mt-6 space-y-1 text-[11px] text-neutral-500 dark:text-neutral-400 border-t border-neutral-200 pt-4 dark:border-neutral-700">
+								<p>• <strong>Setup fee:</strong> £75–£100 one-off depending on complexity.</p>
+								<p>• <strong>Year-end processing & P60s:</strong> £2/employee (min charge £35).</p>
+								<p>• <em>All prices are net of VAT.</em></p>
+							</div>
+
+							<div class="mt-6">
+								<a
+									id="quote-cta-btn"
+									href="/contact"
+									class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-bold text-white shadow transition-all hover:bg-primary-strong text-center"
+								>
+									Lock In This Quote <ArrowRight size={16} />
+								</a>
+							</div>
+						</div>
+
+						<!-- Custom Quote View (For 50+ or Combination) -->
+						<div id="calc-result-custom" class="hidden my-auto text-center py-6">
+							<div class="mx-auto grid h-12 w-12 place-items-center rounded-xl bg-primary/10 text-primary dark:bg-primary/20 mb-4">
+								<Sparkles class="h-6 w-6" />
+							</div>
+							<h3 class="text-xl font-bold text-neutral-900 dark:text-white" id="custom-title">
+								Personalised Quote Required
+							</h3>
+							<p class="mt-2 text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed max-w-sm mx-auto" id="custom-desc">
+								For venues with 50+ team members or multi-frequency combination schemes, we build custom optimized agreements to maximize your volume savings.
+							</p>
+							<div class="mt-6">
+								<a
+									href="/contact?service=custom"
+									class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-bold text-white shadow transition-all hover:bg-primary-strong"
+								>
+									Get Your Custom Quote <ArrowRight size={16} />
+								</a>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+	</section>
+
+	<!-- =============================================
+	     PACKAGES OVERVIEW CARDS
+	     ============================================= -->
+	<section class="site-container py-12 md:py-16">
+		<SectionHeader
+			title="Fixed Packages At a Glance"
+			description="Compare the key features included in each service tier."
+		/>
+
+		<div class="mt-10 grid gap-8 lg:grid-cols-3">
 			{packages.map((pkg) => (
 				<div
 					class:list={[
@@ -173,30 +398,6 @@ const faqs = [
 		</div>
 	</section>
 
-	<!-- Comparison Savings Callout -->
-	<section class="site-container py-12 md:py-16">
-		<div class="rounded-2xl border border-primary/20 bg-primary/5 p-8 dark:bg-primary/10 md:p-12">
-			<div class="grid items-center gap-8 md:grid-cols-[1.2fr_0.8fr]">
-				<div>
-					<h3 class="text-2xl font-bold text-neutral-900 dark:text-white md:text-3xl">
-						Calculate What Percentage-Based Operators Are Costing You
-					</h3>
-					<p class="mt-3 text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
-						If your restaurant or bar processes £20,000 in monthly tips and service charges, a traditional Tronc operator taking 2% charges you <strong>£400 every month (£4,800 a year)</strong> simply to run a formula.
-					</p>
-					<p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
-						With TroncPAYE, your administration cost remains fixed regardless of whether your tips double during the holidays.
-					</p>
-				</div>
-				<div class="text-center md:text-right">
-					<Button url="/contact" type="fill">
-						Request a Savings Analysis <ArrowRight size={16} />
-					</Button>
-				</div>
-			</div>
-		</div>
-	</section>
-
 	<!-- FAQ Section -->
 	<section class="site-container py-12 md:py-20">
 		<SectionHeader
@@ -231,3 +432,240 @@ const faqs = [
 		</div>
 	</section>
 </Layout>
+
+<style>
+	.calc-tab.active {
+		background-color: var(--color-primary);
+		color: #ffffff;
+		border-color: var(--color-primary);
+	}
+	.calc-tab:not(.active) {
+		background-color: transparent;
+		color: var(--color-text-secondary);
+	}
+	.calc-tab:not(.active):hover {
+		background-color: rgba(var(--color-primary-rgb), 0.05);
+	}
+	.freq-btn.active {
+		background-color: var(--color-primary);
+		color: #ffffff;
+		border-color: var(--color-primary);
+	}
+</style>
+
+<script>
+	// Pricing Data Matrices
+	// PAYE rate per pay run by frequency:
+	// Band 1-4: Weekly £20, Fortnightly £25, 4-Weekly £30, Monthly £30
+	// Band 5-10: Weekly £25, Fortnightly £30, 4-Weekly £40, Monthly £40
+	// Band 11-49: Base (5-10) + £3 per extra payslip per run
+	const payeRates = {
+		weekly: { band1_4: 20, band5_10: 25, runs: 52 },
+		fortnightly: { band1_4: 25, band5_10: 30, runs: 26 },
+		"four-weekly": { band1_4: 30, band5_10: 40, runs: 13 },
+		monthly: { band1_4: 30, band5_10: 40, runs: 12 },
+	};
+
+	// Tronc Admin fixed fee per pay run:
+	// Band 1-4: Weekly £10, Fortnightly £12.50, 4-Weekly £15, Monthly £15
+	// Band 5-10: Weekly £12.50, Fortnightly £15, 4-Weekly £20, Monthly £20
+	// Band 11-49: Base (5-10) + £1.50 per extra payslip per run
+	const troncRates = {
+		weekly: { band1_4: 10, band5_10: 12.5, runs: 52 },
+		fortnightly: { band1_4: 12.5, band5_10: 15, runs: 26 },
+		"four-weekly": { band1_4: 15, band5_10: 20, runs: 13 },
+		monthly: { band1_4: 15, band5_10: 20, runs: 12 },
+	};
+
+	const tierDescriptions = {
+		tronc: "<strong>Independent TroncMastery:</strong> For operators who manage payroll elsewhere but need legally independent TroncMaster governance and Tips Act 2023 compliance. Fixed administration fee with 0% commission on tips.",
+		combined: "<strong>The Combined Scheme (Most Popular):</strong> Total single-bureau delivery. We run your full PAYE payroll and operate your independent Tronc scheme together, saving admin and eliminating duplicate spreadsheets.",
+		paye: "<strong>Hospitality Payroll Bureau:</strong> Dedicated hospitality PAYE processing for venues without a tronc scheme. High-turnover rota handling, pension auto-enrolment, and full HMRC RTI submissions.",
+	};
+
+	let currentTier = "combined";
+	let currentFreq = "weekly";
+	let currentEmployees = 12;
+	let currentTips = 4000;
+
+	const tabButtons = document.querySelectorAll<HTMLButtonElement>(".calc-tab");
+	const freqButtons = document.querySelectorAll<HTMLButtonElement>(".freq-btn");
+	const employeeSlider = document.getElementById("employee-slider") as HTMLInputElement;
+	const employeeCountBadge = document.getElementById("employee-count-badge")!;
+	const tipsSlider = document.getElementById("tips-slider") as HTMLInputElement;
+	const tipsBadge = document.getElementById("tips-badge")!;
+	const tipsContainer = document.getElementById("tips-container")!;
+	const tierDesc = document.getElementById("tier-desc")!;
+
+	const calcResultNormal = document.getElementById("calc-result-normal")!;
+	const calcResultCustom = document.getElementById("calc-result-custom")!;
+	const customTitle = document.getElementById("custom-title")!;
+	const customDesc = document.getElementById("custom-desc")!;
+
+	const monthlyFeeDisplay = document.getElementById("monthly-fee-display")!;
+	const perRunDisplay = document.getElementById("per-run-display")!;
+	const calcBreakdown = document.getElementById("calc-breakdown")!;
+	const savingsBox = document.getElementById("savings-box")!;
+	const tradFeeDisplay = document.getElementById("trad-fee-display")!;
+	const annualSavingsDisplay = document.getElementById("annual-savings-display")!;
+	const quoteCtaBtn = document.getElementById("quote-cta-btn") as HTMLAnchorElement;
+
+	function calculate() {
+		tierDesc.innerHTML = tierDescriptions[currentTier as keyof typeof tierDescriptions];
+
+		// Toggle tips slider visibility (only on Tronc and Combined)
+		if (currentTier === "paye") {
+			tipsContainer.classList.add("hidden");
+			savingsBox.classList.add("hidden");
+		} else {
+			tipsContainer.classList.remove("hidden");
+			savingsBox.classList.remove("hidden");
+		}
+
+		// Handle Combination Frequency
+		if (currentFreq === "combination") {
+			calcResultNormal.classList.add("hidden");
+			calcResultCustom.classList.remove("hidden");
+			customTitle.textContent = "Combination Scheme Quote";
+			customDesc.textContent = "You operate multiple payroll schedules (e.g. weekly for front-of-house and monthly for management). Contact us for a unified multi-schedule quote.";
+			return;
+		}
+
+		// Handle 50+ Employees
+		if (currentEmployees >= 50) {
+			calcResultNormal.classList.add("hidden");
+			calcResultCustom.classList.remove("hidden");
+			customTitle.textContent = "Enterprise 50+ Custom Quote";
+			customDesc.textContent = "For operations with 50+ employees or multi-site venue groups, we provide preferential volume discounts and bespoke SLA terms.";
+			return;
+		}
+
+		// Show normal calculation view
+		calcResultNormal.classList.remove("hidden");
+		calcResultCustom.classList.add("hidden");
+
+		const freqConfig = payeRates[currentFreq as keyof typeof payeRates];
+		const troncConfig = troncRates[currentFreq as keyof typeof troncRates];
+		const runsPerYear = freqConfig.runs;
+
+		// 1. Calculate PAYE cost per run
+		let payePerRun = 0;
+		if (currentEmployees <= 4) {
+			payePerRun = freqConfig.band1_4;
+		} else if (currentEmployees <= 10) {
+			payePerRun = freqConfig.band5_10;
+		} else {
+			const extraEmployees = currentEmployees - 10;
+			payePerRun = freqConfig.band5_10 + extraEmployees * 3.0; // £3 per extra payslip
+		}
+
+		// 2. Calculate Tronc cost per run
+		let troncPerRun = 0;
+		if (currentEmployees <= 4) {
+			troncPerRun = troncConfig.band1_4;
+		} else if (currentEmployees <= 10) {
+			troncPerRun = troncConfig.band5_10;
+		} else {
+			const extraEmployees = currentEmployees - 10;
+			troncPerRun = troncConfig.band5_10 + extraEmployees * 1.5; // £1.50 per extra tronc payslip
+		}
+
+		// Determine selected tier fee per run
+		let totalPerRun = 0;
+		let breakdownHTML = "";
+
+		if (currentTier === "paye") {
+			totalPerRun = payePerRun;
+			breakdownHTML = `
+				<div class="flex justify-between py-1">
+					<span>Payroll bureau fee (${currentEmployees} staff):</span>
+					<span class="font-bold">£${payePerRun.toFixed(2)} / run</span>
+				</div>
+			`;
+		} else if (currentTier === "tronc") {
+			totalPerRun = troncPerRun;
+			breakdownHTML = `
+				<div class="flex justify-between py-1">
+					<span>TroncMaster administration fee (${currentEmployees} staff):</span>
+					<span class="font-bold">£${troncPerRun.toFixed(2)} / run</span>
+				</div>
+			`;
+		} else {
+			// Combined
+			totalPerRun = payePerRun + troncPerRun;
+			breakdownHTML = `
+				<div class="flex justify-between py-1">
+					<span>Payroll bureau component:</span>
+					<span class="font-bold">£${payePerRun.toFixed(2)} / run</span>
+				</div>
+				<div class="flex justify-between py-1">
+					<span>Tronc administration component:</span>
+					<span class="font-bold">£${troncPerRun.toFixed(2)} / run</span>
+				</div>
+			`;
+		}
+
+		// 12 Equal monthly instalments
+		const monthlyFee = (totalPerRun * runsPerYear) / 12;
+
+		monthlyFeeDisplay.textContent = `£${monthlyFee.toFixed(2)}`;
+		perRunDisplay.textContent = `£${totalPerRun.toFixed(2)}`;
+		calcBreakdown.innerHTML = breakdownHTML;
+
+		// Calculate Traditional 4% operator fee & savings
+		if (currentTier !== "paye") {
+			const tradFeePerRun = currentTips * 0.04;
+			const tradMonthlyFee = (tradFeePerRun * runsPerYear) / 12;
+
+			// Comparing against the tronc component our fee charges:
+			const ourTroncMonthly = (troncPerRun * runsPerYear) / 12;
+			const monthlySavings = Math.max(0, tradMonthlyFee - ourTroncMonthly);
+			const annualSavings = monthlySavings * 12;
+
+			tradFeeDisplay.textContent = `£${tradMonthlyFee.toFixed(2)} / mo`;
+			annualSavingsDisplay.textContent = `Save £${Math.round(annualSavings).toLocaleString()} / yr`;
+		}
+
+		// Update CTA link with query params
+		quoteCtaBtn.href = `/contact?tier=${currentTier}&headcount=${currentEmployees}&freq=${currentFreq}&monthly=${monthlyFee.toFixed(0)}`;
+	}
+
+	// Tab click listeners
+	tabButtons.forEach((tab) => {
+		tab.addEventListener("click", () => {
+			tabButtons.forEach((t) => t.classList.remove("active"));
+			tab.classList.add("active");
+			currentTier = tab.dataset.tier || "combined";
+			calculate();
+		});
+	});
+
+	// Frequency click listeners
+	freqButtons.forEach((btn) => {
+		btn.addEventListener("click", () => {
+			freqButtons.forEach((b) => b.classList.remove("active"));
+			btn.classList.add("active");
+			currentFreq = btn.dataset.freq || "weekly";
+			calculate();
+		});
+	});
+
+	// Employee slider listener
+	employeeSlider.addEventListener("input", (e) => {
+		const val = parseInt((e.target as HTMLInputElement).value, 10);
+		currentEmployees = val;
+		employeeCountBadge.textContent = val >= 50 ? "50+ Employees" : `${val} Employees`;
+		calculate();
+	});
+
+	// Tips slider listener
+	tipsSlider.addEventListener("input", (e) => {
+		const val = parseInt((e.target as HTMLInputElement).value, 10);
+		currentTips = val;
+		tipsBadge.textContent = `£${val.toLocaleString()} / period`;
+		calculate();
+	});
+
+	// Initial calculation on page load
+	calculate();
+</script>
