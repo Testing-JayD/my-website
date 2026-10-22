@@ -1,4 +1,33 @@
-<a href="/" class="grid h-10 w-10 place-items-center rounded-full bg-primary text-lg font-bold text-btn-primary-text shadow-sm transition-transform duration-200 hover:scale-105" aria-label="Design-led Astro Starter home">
-  <span aria-hidden="true">✦</span>
-</a>
+---
+interface Props {
+  showTagline?: boolean;
+  className?: string;
+}
 
+const { showTagline = true, className = "" } = Astro.props;
+---
+
+<a href="/" class={`group inline-flex items-center gap-2.5 transition-opacity hover:opacity-95 ${className}`} aria-label="TroncPAYE Home">
+  <!-- Brand Icon Badge -->
+  <div class="relative flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-primary text-white shadow-sm transition-transform duration-200 group-hover:scale-105">
+    <!-- Sync / Perfect Alignment Emblem -->
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+      <path d="m16 3 4 4-4 4" />
+      <path d="M20 7H4" />
+      <path d="m8 21-4-4 4-4" />
+      <path d="M4 17h16" />
+    </svg>
+  </div>
+
+  <!-- Brand Typography -->
+  <div class="flex flex-col leading-tight">
+    <div class="flex items-center text-lg sm:text-xl font-extrabold tracking-tight">
+      <span class="text-neutral-900 dark:text-white">Tronc</span><span class="text-primary">PAYE</span>
+    </div>
+    {showTagline && (
+      <span class="text-[9px] sm:text-[10px] font-semibold uppercase tracking-[0.06em] text-neutral-500 dark:text-neutral-400">
+        TroncMaster & Payroll
+      </span>
+    )}
+  </div>
+</a>

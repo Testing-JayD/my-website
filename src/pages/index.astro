@@ -3,30 +3,23 @@ import Layout from "@/layouts/Layout.astro";
 import HeroSection from "@/components/home/HeroSection.astro";
 import SectionHeader from "@/components/elements/SectionHeader.astro";
 import Button from "@/components/ui/Button.astro";
-import BrowserFrame from "@/components/ui/BrowserFrame.astro";
-import { siteConfig } from "@/config/site";
 import {
 	ArrowRight,
 	Banknote,
-	CheckCircle2,
-	Clock,
-	FileCheck2,
+	CircleCheck,
+	CircleX,
 	Percent,
 	Scale,
-	ShieldAlert,
 	ShieldCheck,
 	Shuffle,
 	Sparkles,
-	Users2,
-	XCircle,
 } from "@lucide/astro";
 
-// The 4 Core Value Pillars
 const pillars = [
 	{
 		icon: Percent,
 		title: "Fixed Fee, Zero % Cuts",
-		desc: "Traditional tronc masters take a 1% to 3% commission on all card tips and service charges. We charge a flat, transparent monthly fee. Your staff keep what they earn.",
+		desc: "Traditional tronc masters take a 1% to 4% commission on all card tips and service charges. We charge a flat, transparent monthly fee. Your staff keep what they earn.",
 	},
 	{
 		icon: Shuffle,
@@ -45,7 +38,6 @@ const pillars = [
 	},
 ];
 
-// Workflow Steps
 const steps = [
 	{
 		step: "01",
@@ -75,10 +67,8 @@ const steps = [
 	description="Merge your TroncMaster and Payroll bureau into one. Protect tip revenues with a fixed monthly fee and full Tips Act compliance."
 	keywords="troncmaster, hospitality payroll, tronc scheme, restaurant payroll bureau, tips act 2023"
 >
-	<!-- Hero Section -->
 	<HeroSection />
 
-	<!-- Core Pillars -->
 	<section class="site-container py-16 md:py-24">
 		<SectionHeader
 			title="Why Hospitality Venues Switch to TroncPAYE"
@@ -101,7 +91,6 @@ const steps = [
 
 	<div class="site-container my-2 border-b border-dashed border-neutral-200 dark:border-neutral-800"></div>
 
-	<!-- Comparison: Traditional vs TroncPAYE -->
 	<section class="site-container py-16 md:py-24">
 		<div class="grid items-center gap-10 lg:grid-cols-2">
 			<div>
@@ -112,7 +101,7 @@ const steps = [
 					Tired of paying % commissions on your tips?
 				</h2>
 				<p class="text-neutral-600 dark:text-neutral-300 leading-relaxed">
-					Most traditional Tronc providers charge a percentage of your total tip pool. If your team has a busy December, your Tronc bill skyrockets — despite the software doing the exact same amount of work.
+					Most traditional Tronc providers charge a percentage of your total tip pool. If your team has a busy season, your Tronc bill skyrockets — despite the software doing the exact same amount of work.
 				</p>
 				<p class="mt-4 text-neutral-600 dark:text-neutral-300 leading-relaxed">
 					By combining <strong>TroncMaster duties</strong> directly with your <strong>payroll bureau</strong>, we streamline communications, eliminate double handling, and charge one predictable flat fee.
@@ -127,17 +116,15 @@ const steps = [
 				</div>
 			</div>
 
-			<!-- Comparison Cards Side-by-Side -->
 			<div class="grid gap-4 sm:grid-cols-2">
-				<!-- Traditional Setup -->
 				<div class="rounded-xl border border-rose-200 bg-rose-50/40 p-5 dark:border-rose-950 dark:bg-rose-950/20">
 					<div class="mb-3 flex items-center gap-2 text-rose-600 font-bold text-sm">
-						<XCircle class="h-5 w-5" /> Traditional Setup
+						<CircleX class="h-5 w-5" /> Traditional Setup
 					</div>
 					<ul class="space-y-3 text-xs text-neutral-700 dark:text-neutral-300">
 						<li class="flex items-start gap-2">
 							<span class="text-rose-500 font-bold">✕</span>
-							<span>1% – 3% cut taken straight from staff tips</span>
+							<span>1% – 4% cut taken straight from staff tips</span>
 						</li>
 						<li class="flex items-start gap-2">
 							<span class="text-rose-500 font-bold">✕</span>
@@ -154,10 +141,9 @@ const steps = [
 					</ul>
 				</div>
 
-				<!-- TroncPAYE Setup -->
 				<div class="rounded-xl border border-primary/30 bg-primary/5 p-5 dark:border-primary/40 dark:bg-primary/10">
 					<div class="mb-3 flex items-center gap-2 text-primary font-bold text-sm">
-						<CheckCircle2 class="h-5 w-5" /> The TroncPAYE Way
+						<CircleCheck class="h-5 w-5" /> The TroncPAYE Way
 					</div>
 					<ul class="space-y-3 text-xs text-neutral-800 dark:text-neutral-200">
 						<li class="flex items-start gap-2">
@@ -184,7 +170,6 @@ const steps = [
 
 	<div class="site-container my-2 border-b border-dashed border-neutral-200 dark:border-neutral-800"></div>
 
-	<!-- How It Works (Workflow) -->
 	<section class="site-container py-16 md:py-24">
 		<SectionHeader
 			title="How the Combined Scheme Works"
@@ -203,7 +188,6 @@ const steps = [
 		</div>
 	</section>
 
-	<!-- Conversion CTA Banner -->
 	<section class="site-container py-12 md:py-20">
 		<div class="rounded-2xl bg-gradient-to-br from-primary to-[#122d78] p-8 text-center text-white shadow-xl md:p-14">
 			<div class="mx-auto mb-4 grid h-12 w-12 place-items-center rounded-xl bg-white/10 text-white backdrop-blur">

@@ -2,61 +2,122 @@
 import Logo from "@/components/ui/Logo.astro";
 import ToTop from "@/components/widgets/ToTop.astro";
 import { siteConfig } from "@/config/site.js";
+import { CircleCheck, Mail } from "@lucide/astro";
 
 const currentYear = new Date().getFullYear();
-const templateVersion = "v1.0.0";
+
 const footerLinks = {
-	starter: [
-		{ name: "Home", url: "/" },
-		{ name: "Blog", url: "/blog" },
-		{ name: "DESIGN.md", url: "/design" },
-		{ name: "Elements", url: "/elements" },
+	services: [
+		{ name: "Independent TroncMaster", url: "/features#tronc" },
+		{ name: "Hospitality Payroll Bureau", url: "/features#payroll" },
+		{ name: "Combined Scheme (All-in-One)", url: "/features#combined" },
+		{ name: "Interactive Fee Calculator", url: "/pricing" },
+		{ name: "Package Comparison Matrix", url: "/pricing" },
 	],
-	resources: [
-		{ name: "RSS", url: "/rss.xml" },
-		{ name: "Source repository", url: siteConfig.social.github },
-		{ name: "MIT License", url: `${siteConfig.social.github}/blob/main/LICENSE` },
+	company: [
+		{ name: "About TroncPAYE", url: "/about" },
+		{ name: "Our Fixed-Fee Mission", url: "/about" },
+		{ name: "Get a Tailored Quote", url: "/contact" },
+		{ name: "Frequently Asked Questions", url: "/pricing#faqs" },
+	],
+	socials: [
+		{ name: "LinkedIn", url: siteConfig.social.linkedin },
+		{ name: "X (Twitter)", url: siteConfig.social.x },
+		{ name: "Facebook", url: siteConfig.social.facebook },
+		{ name: "Instagram", url: siteConfig.social.instagram },
 	],
 };
 ---
 
-<section class="mt-20 border-t border-dashed border-primary/15 text-gray-700 dark:border-primary-dark/15 md:mt-32">
-	<div class="container mx-auto max-w-7xl px-7 py-12 md:py-16">
-		<div class="mb-10 flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
-			<div class="max-w-sm">
+<footer class="mt-20 border-t border-dashed border-primary/20 bg-neutral-50/70 text-neutral-700 dark:border-neutral-800 dark:bg-neutral-950/40 md:mt-32">
+	<div class="site-container py-12 md:py-16">
+		<div class="grid gap-10 lg:grid-cols-[1.3fr_0.9fr_0.8fr]">
+			
+			<div class="max-w-md">
 				<Logo />
-				<p class="mt-4 text-sm leading-relaxed text-neutral-500 dark:text-neutral-400">
-					A generic Astro 7 starter with Blog, DESIGN.md, Elements, Tailwind CSS v4, MDX, and a reusable theme system.
+				<p class="mt-4 text-xs leading-relaxed text-neutral-600 dark:text-neutral-400">
+					Independent TroncMaster governance and specialist payroll bureau services united under one roof for UK hospitality. Eliminating double administration, ensuring 100% Tips Act 2023 compliance, and charging a fixed monthly fee with zero commission taken from tips.
 				</p>
+
+				<div class="mt-6 flex flex-col gap-2 border-t border-neutral-200/80 pt-4 text-xs text-neutral-600 dark:border-neutral-800 dark:text-neutral-400">
+					<span class="flex items-center gap-2 font-medium">
+						<CircleCheck class="h-4 w-4 text-primary flex-none" /> Employment (Allocation of Tips) Act 2023 Compliant
+					</span>
+					<span class="flex items-center gap-2 font-medium">
+						<CircleCheck class="h-4 w-4 text-primary flex-none" /> HMRC Independent TroncMaster Status
+					</span>
+					<span class="flex items-center gap-2 font-medium">
+						<CircleCheck class="h-4 w-4 text-primary flex-none" /> 0% Tip Deductions • Fixed Monthly Retainer
+					</span>
+				</div>
 			</div>
 
-			<div class="grid grid-cols-2 gap-8 md:gap-12">
-				<div>
-					<h4 class="mb-4 text-sm font-semibold text-neutral-800 dark:text-neutral-200">Starter</h4>
-					<ul class="space-y-3">
-						{footerLinks.starter.map((link) => <li><a href={link.url} class="text-sm text-neutral-500 transition-colors duration-200 hover:text-primary dark:text-neutral-400 dark:hover:text-primary-light">{link.name}</a></li>)}
-					</ul>
-				</div>
-				<div>
-					<h4 class="mb-4 text-sm font-semibold text-neutral-800 dark:text-neutral-200">Resources</h4>
-					<ul class="space-y-3">
-						{footerLinks.resources.map((link) => <li><a href={link.url} class="text-sm text-neutral-500 transition-colors duration-200 hover:text-primary dark:text-neutral-400 dark:hover:text-primary-light">{link.name}</a></li>)}
-					</ul>
+			<div>
+				<h4 class="mb-4 text-xs font-bold uppercase tracking-wider text-neutral-900 dark:text-white">
+					Hospitality Solutions
+				</h4>
+				<ul class="space-y-2.5">
+					{footerLinks.services.map((link) => (
+						<li>
+							<a
+								href={link.url}
+								class="text-xs text-neutral-600 transition-colors duration-150 hover:text-primary dark:text-neutral-400 dark:hover:text-primary-light"
+							>
+								{link.name}
+							</a>
+						</li>
+					))}
+				</ul>
+			</div>
+
+			<div>
+				<h4 class="mb-4 text-xs font-bold uppercase tracking-wider text-neutral-900 dark:text-white">
+					Company & Contact
+				</h4>
+				<ul class="space-y-2.5">
+					{footerLinks.company.map((link) => (
+						<li>
+							<a
+								href={link.url}
+								class="text-xs text-neutral-600 transition-colors duration-150 hover:text-primary dark:text-neutral-400 dark:hover:text-primary-light"
+							>
+								{link.name}
+							</a>
+						</li>
+					))}
+				</ul>
+
+				<div class="mt-6 border-t border-neutral-200/80 pt-4 dark:border-neutral-800">
+					<p class="text-[11px] font-semibold text-neutral-500 uppercase tracking-wider">Direct Enquiries</p>
+					<a
+						href={`mailto:${siteConfig.contact.email}`}
+						class="mt-1 inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:underline"
+					>
+						<Mail class="h-3.5 w-3.5" /> {siteConfig.contact.email}
+					</a>
+
+					<div class="mt-4 flex items-center gap-3">
+						{footerLinks.socials.map((soc) => (
+							<a
+								href={soc.url}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="text-xs font-medium text-neutral-500 transition-colors hover:text-primary dark:text-neutral-400"
+							>
+								{soc.name}
+							</a>
+						))}
+					</div>
 				</div>
 			</div>
+
 		</div>
 
-		<div class="flex flex-col items-center justify-between gap-4 border-t border-dashed border-primary/10 pt-8 dark:border-primary-dark/10 sm:flex-row">
-			<p class="text-sm text-neutral-400 dark:text-neutral-500">© {currentYear} · Released under the MIT License.</p>
-			<div class="flex items-center gap-4">
-				<span class="inline-flex items-center gap-2 text-xs text-neutral-400 dark:text-neutral-500">
-					<span class="inline-flex items-center gap-1.5 rounded-md border border-dashed border-primary/30 px-2 py-0.5 text-primary/80"><span class="h-1.5 w-1.5 rounded-full bg-primary"></span>{templateVersion}</span>
-					<span>Astro 7 starter</span>
-				</span>
-				<a href={siteConfig.social.github} target="_blank" class="text-xs font-medium text-neutral-400 transition-colors hover:text-primary dark:text-neutral-500 dark:hover:text-primary-light">View source</a>
-			</div>
+		<div class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-neutral-200/80 pt-8 text-center sm:text-left text-xs text-neutral-500 dark:border-neutral-800 dark:text-neutral-400 sm:flex-row">
+			<p>© {currentYear} TroncPAYE. Registered in England & Wales. All rights reserved.</p>
+			<p class="text-[11px]">All quoted fees are net of VAT. Invoiced in 12 equal monthly instalments.</p>
 		</div>
 	</div>
-</section>
+</footer>
 
 <ToTop />

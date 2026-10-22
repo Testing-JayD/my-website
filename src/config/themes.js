@@ -1,7 +1,5 @@
 export const themeSettings = {
-	// Use your custom brand theme as the default
 	defaultThemeId: "troncpaye",
-	// Turned off for production so visitors see your brand colors
 	showThemeSwitcher: false,
 	persistUserSelection: false,
 	storageKey: "theme_id",
@@ -16,6 +14,20 @@ export const themes = [
 		id: "troncpaye",
 		name: "TroncPAYE Corporate",
 		description: "Professional corporate navy and slate blue for TroncPAYE.",
+		details: {
+			atmosphere: "Corporate UK payroll and TroncMaster palette with deep navy blue, crisp white surfaces, and professional slate tones.",
+			bestFor: ["Payroll Bureau", "Hospitality Tronc", "B2B Financial Services"],
+			colorRoles: [
+				{ name: "Brand Navy", value: "#1a3fa0", role: "Primary headings, buttons, and brand identity" },
+				{ name: "Navy Dark", value: "#122d78", role: "Hover states and dark accents" },
+				{ name: "Slate Text", value: "#1a1a2e", role: "Primary text and crisp typography" },
+				{ name: "Soft Surface", value: "#f7f9fc", role: "Light card backgrounds and secondary surfaces" },
+			],
+			guidance: [
+				"Use brand navy (#1a3fa0) as the primary indicator for all actions and key headings.",
+				"Keep surfaces clean with high contrast for financial and payroll legibility.",
+			],
+		},
 		swatches: ["#1a3fa0", "#122d78", "#e8edfb", "#f7f9fc", "#0f1b3d"],
 		lightSwatches: ["#1a3fa0", "#122d78", "#e8edfb", "#f7f9fc", "#1a1a2e", "#ffffff"],
 		darkSwatches: ["#8faaff", "#e8edfb", "#1a3fa0", "#0f1b3d", "#080f24", "#1a1a2e"],

@@ -12,11 +12,7 @@
 		"url": "/features"
 	},
 	{
-		"name": "Pricing",
+		"name": "Pricing & Calculator",
 		"url": "/pricing"
-	},
-	{
-		"name": "Get a Quote",
-		"url": "/contact"
 	}
 ]

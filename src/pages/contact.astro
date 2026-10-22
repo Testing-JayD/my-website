@@ -1,21 +1,13 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import SectionHeader from "@/components/elements/SectionHeader.astro";
-import Button from "@/components/ui/Button.astro";
-import Badge from "@/components/ui/Badge.astro";
-import { siteConfig } from "@/config/site";
+import { siteConfig } from "@/config/site.js";
 import {
 	ArrowRight,
 	Calculator,
-	CheckCircle2,
+	CircleCheck,
 	Clock,
-	Coins,
-	FileSpreadsheet,
 	Mail,
 	MessageSquare,
-	Phone,
-	ShieldCheck,
-	Sparkles,
 	TrendingDown,
 } from "@lucide/astro";
 ---
@@ -25,7 +17,6 @@ import {
 	description="Request a free, fixed-monthly quote for independent TroncMaster oversight and hospitality payroll bureau delivery."
 	keywords="get tronc quote, restaurant payroll quote, troncmaster contact, hospitality payroll pricing"
 >
-	<!-- Page Header: Standalone by Default -->
 	<section class="site-container pt-16 pb-8 text-center md:pt-24 md:pb-12">
 		<div class="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-semibold text-primary">
 			<MessageSquare class="h-3.5 w-3.5" /> Fast 24-Hour Turnaround
@@ -40,8 +31,6 @@ import {
 
 	<section class="site-container py-8 md:py-16">
 		<div class="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
-			
-			<!-- Left Column: Information & Trust -->
 			<div class="flex flex-col justify-between">
 				<div>
 					<h2 class="text-2xl font-bold text-neutral-900 dark:text-white md:text-3xl">
@@ -53,7 +42,7 @@ import {
 
 					<div class="mt-8 space-y-4">
 						<div class="flex items-start gap-3 rounded-xl border border-neutral-200/80 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-900">
-							<CheckCircle2 class="h-5 w-5 text-primary flex-none mt-0.5" />
+							<CircleCheck class="h-5 w-5 text-primary flex-none mt-0.5" />
 							<div>
 								<h3 class="text-sm font-bold text-neutral-900 dark:text-white">12 Equal Monthly Instalments</h3>
 								<p class="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
@@ -63,7 +52,7 @@ import {
 						</div>
 
 						<div class="flex items-start gap-3 rounded-xl border border-neutral-200/80 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-900">
-							<CheckCircle2 class="h-5 w-5 text-primary flex-none mt-0.5" />
+							<CircleCheck class="h-5 w-5 text-primary flex-none mt-0.5" />
 							<div>
 								<h3 class="text-sm font-bold text-neutral-900 dark:text-white">Tips Act 2023 Statutory Protection</h3>
 								<p class="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
@@ -73,7 +62,7 @@ import {
 						</div>
 
 						<div class="flex items-start gap-3 rounded-xl border border-neutral-200/80 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-900">
-							<CheckCircle2 class="h-5 w-5 text-primary flex-none mt-0.5" />
+							<CircleCheck class="h-5 w-5 text-primary flex-none mt-0.5" />
 							<div>
 								<h3 class="text-sm font-bold text-neutral-900 dark:text-white">Dedicated Account Specialist</h3>
 								<p class="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
@@ -84,7 +73,6 @@ import {
 					</div>
 				</div>
 
-				<!-- Contact Details Card -->
 				<div class="mt-8 rounded-2xl border border-primary/20 bg-primary/5 p-6 dark:bg-primary/10">
 					<p class="text-xs uppercase font-bold tracking-wider text-primary">Direct Communication</p>
 					<div class="mt-4 space-y-3">
@@ -102,10 +90,8 @@ import {
 				</div>
 			</div>
 
-			<!-- Right Column: Interactive Lead Form -->
 			<div class="rounded-2xl border border-neutral-200/80 bg-white p-8 shadow-sm dark:border-neutral-800 dark:bg-neutral-900 md:p-10">
 				
-				<!-- DYNAMIC QUOTE SUMMARY BANNER (Hidden unless ?quote=true is in URL) -->
 				<div id="locked-quote-card" class="hidden mb-6 rounded-xl border border-primary/30 bg-primary/5 p-5 dark:border-primary/40 dark:bg-primary/10">
 					<div class="flex items-start justify-between gap-4">
 						<div class="flex items-center gap-2 text-primary font-bold text-sm">
@@ -151,7 +137,7 @@ import {
 					Complete this quick form and our specialists will prepare your itemized fixed quote.
 				</p>
 
-				<form class="space-y-4" onsubmit="event.preventDefault(); alert('Thank you! We have received your enquiry and will be in touch within 24 hours with your quote.');">
+				<form id="quote-form" class="space-y-4">
 					<div class="grid gap-4 sm:grid-cols-2">
 						<div>
 							<label for="fullName" class="block text-xs font-semibold text-neutral-700 dark:text-neutral-300 mb-1">Your Name *</label>
@@ -264,8 +250,13 @@ import {
 </Layout>
 
 <script>
-	// Parse URL Query Parameters on load
 	document.addEventListener("DOMContentLoaded", () => {
+		const form = document.getElementById("quote-form");
+		form?.addEventListener("submit", (e) => {
+			e.preventDefault();
+			alert("Thank you! We have received your enquiry and will be in touch within 24 hours with your quote.");
+		});
+
 		const params = new URLSearchParams(window.location.search);
 
 		const mainTitle = document.getElementById("page-main-title");
@@ -287,7 +278,6 @@ import {
 		const bannerSavingsRow = document.getElementById("banner-savings-row");
 		const bannerSavings = document.getElementById("banner-savings");
 
-		// Scenario A: Full Quote Carry-Over from Calculator
 		if (params.get("quote") === "true") {
 			const tier = params.get("tier") || "combined";
 			const tierName = params.get("tierName") || "Combined Tronc & Payroll";
@@ -298,24 +288,12 @@ import {
 			const tips = params.get("tips");
 			const savings = params.get("savings");
 
-			// 1. Contextualize titles for arriving with a quote
-			if (mainTitle) {
-				mainTitle.innerHTML = 'Lock In Your <span class="text-primary">Fixed-Fee Agreement</span>';
-			}
-			if (subTitle) {
-				subTitle.textContent = "Review your calculator estimate below, confirm your contact details, and our onboarding team will prepare your formal setup agreement.";
-			}
-			if (formHeading) {
-				formHeading.textContent = "Confirm Your Details";
-			}
-			if (formSubheading) {
-				formSubheading.textContent = "We have pre-filled your quote breakdown in the message below. Fill in your contact info to submit your enquiry.";
-			}
-			if (submitBtn) {
-				submitBtn.innerHTML = 'Confirm & Request Onboarding Pack <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>';
-			}
+			if (mainTitle) mainTitle.innerHTML = 'Lock In Your <span class="text-primary">Fixed-Fee Agreement</span>';
+			if (subTitle) subTitle.textContent = "Review your calculator estimate below, confirm your contact details, and our onboarding team will prepare your formal setup agreement.";
+			if (formHeading) formHeading.textContent = "Confirm Your Details";
+			if (formSubheading) formSubheading.textContent = "We have pre-filled your quote breakdown in the message below. Fill in your contact info to submit your enquiry.";
+			if (submitBtn) submitBtn.innerHTML = 'Confirm & Request Onboarding Pack <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>';
 
-			// 2. Show & Populate Banner Card
 			if (quoteCard && bannerMonthly && bannerTier && bannerFreq && bannerHeadcount && bannerRunfee) {
 				quoteCard.classList.remove("hidden");
 				bannerMonthly.textContent = `£${monthly} / mo`;
@@ -330,7 +308,6 @@ import {
 				}
 			}
 
-			// 3. Select appropriate dropdown options
 			if (serviceSelect) {
 				if (tier === "tronc") serviceSelect.value = "tronc";
 				else if (tier === "paye") serviceSelect.value = "payroll";
@@ -344,7 +321,6 @@ import {
 				else headcountSelect.value = "76+";
 			}
 
-			// 4. Populate Message Box
 			if (notesTextarea) {
 				let message = `I have locked in my quote of £${monthly} per month (net of VAT) for the following setup:\n\n`;
 				message += `• Service Tier: ${tierName}\n`;
@@ -358,13 +334,11 @@ import {
 					message += `• Estimated Savings vs 4% Operators: ~£${parseInt(savings, 10).toLocaleString()} / year\n`;
 				}
 				message += `\nPlease send over our onboarding pack and scheme setup agreement.`;
-
 				notesTextarea.value = message;
 			}
 			return;
 		}
 
-		// Scenario B: Query from Comparison Table or Package Links (e.g. ?package=tronc)
 		const pkg = params.get("package") || params.get("tier");
 		if (pkg && serviceSelect) {
 			if (pkg.includes("tronc")) {
@@ -379,7 +353,6 @@ import {
 			}
 		}
 
-		// Scenario C: Custom Enterprise / Multi-Frequency Quote
 		const customType = params.get("customType");
 		if (customType && notesTextarea) {
 			if (customType === "enterprise") {

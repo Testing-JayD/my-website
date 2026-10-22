@@ -6,7 +6,7 @@ This file is the living, single source of truth for the TroncPAYE website projec
 
 ## 1. Business Information
 
-- **Company Name:** TroncPAYE (formerly PAYE Solutions Ltd)
+- **Company Name:** TroncPAYE
 - **Sector:** UK Hospitality Payroll Bureau & Independent TroncMaster
 - **Target Audience:** Restaurants, bars, hotels, pubs, and hospitality groups in the United Kingdom.
 - **Tagline:** "Tronc and payroll, perfectly in sync."
@@ -23,7 +23,28 @@ This file is the living, single source of truth for the TroncPAYE website projec
 
 ---
 
-## 2. Pricing Calculator & Quote Carry-Over Architecture
+## 2. Navigation, Header & Footer Architecture
+
+- **Header Component (`src/components/sections/Header.astro`):**
+  - Dark mode toggle removed.
+  - GitHub link removed.
+  - Dedicated brand-primary CTA button: **"Get a Quote"** (`/contact`).
+- **Logo Component (`src/components/ui/Logo.astro`):**
+  - Custom two-way sync emblem representing Tronc and Payroll alignment.
+  - Two-tone typography (**Tronc** in bold neutral, **PAYE** in brand primary blue `#1a3fa0`) with the sub-label *"TroncMaster & Payroll"*.
+- **Footer Component (`src/components/sections/Footer.astro`):**
+  - Brand overview, compliance trust signals (Tips Act 2023, HMRC independent status, 0% tip commission).
+  - Categorized direct navigation (Solutions, Company, Contact, and Socials).
+  - Legal bar: `© {currentYear} TroncPAYE. Registered in England & Wales. All rights reserved. All quoted fees are net of VAT.`
+- **Navigation Links (`src/collections/menu.json`):**
+  1. `Home` (`/`)
+  2. `About Us` (`/about`)
+  3. `Our Services` (`/features`)
+  4. `Pricing & Calculator` (`/pricing`)
+
+---
+
+## 3. Pricing Calculator & Quote Carry-Over Architecture
 
 ### 1. Interactive 3-Tier Calculator (`src/pages/pricing.astro`):
 - **Folder Tabs:** `Tronc Master`, `Tronc & PAYE` (Recommended), and `PAYE Only`.
@@ -37,7 +58,7 @@ This file is the living, single source of truth for the TroncPAYE website projec
   - Annualised 12 equal monthly instalments formula: `(Total Run Fee × Annual Runs) / 12`.
   - Ancillary: Setup fee £75–£100, Year-End & P60s £2/employee (min £35). Net of VAT.
 - **Feature Comparison Matrix:**
-  - Replaced former carded packages below calculator with a full 3-column capability table across Tronc Governance, Payroll Bureau, and Single-Bureau Integration.
+  - Side-by-side capability table across Tronc Governance, Payroll Bureau, and Single-Bureau Integration.
 
 ### 2. Standalone & Quote-Driven Contact Flow (`src/pages/contact.astro`):
 - **Standalone Mode (Direct Visitors):** Displays a clean, generic quote-request interface ("Get a Free Tailored Quote") with standard guidance and empty form inputs.
@@ -49,7 +70,7 @@ This file is the living, single source of truth for the TroncPAYE website projec
 
 ---
 
-## 3. Brand Identity & Design System
+## 4. Brand Identity & Design System
 
 - **Primary Colors:**
   - Primary Brand Blue: `#1a3fa0` (`--color-primary`)
@@ -70,11 +91,11 @@ This file is the living, single source of truth for the TroncPAYE website projec
   - Body & UI font: Inter (`--font-sans`).
 - **Design Tokens & Theme System:**
   - Theme: Custom `troncpaye` theme defined in `src/config/themes.js`.
-  - `showThemeSwitcher: false` and `persistUserSelection: false` are configured to lock the public site into corporate TroncPAYE navy.
+  - `showThemeSwitcher: false` and `persistUserSelection: false` lock the public site into corporate TroncPAYE navy.
 
 ---
 
-## 4. Website Structure & Routes
+## 5. Website Structure & Routes
 
 | Route | Page | Purpose & Current State |
 | --- | --- | --- |
@@ -83,18 +104,8 @@ This file is the living, single source of truth for the TroncPAYE website projec
 | `/pricing` | Pricing & Packages (`src/pages/pricing.astro`) | **Complete:** 3-tier folder-tab calculator (defaults to Monthly), dynamic savings slider, Side-by-Side Feature Comparison Table, FAQ, and quote CTA. |
 | `/about` | About Us (`src/pages/about.astro`) | **Complete:** The story behind TroncPAYE, three-stage evolution, four operational principles, Tips Act 2023 legal compliance overview, and partner CTA. |
 | `/contact` | Get a Quote / Contact (`src/pages/contact.astro`) | **Complete:** Dual-mode page (standalone generic enquiry by default, or auto-populating locked-in quote review when arriving from the pricing calculator). |
+| `/404` | 404 Error (`src/pages/404.astro`) | **Complete:** Hospitality-focused error recovery page directing users back to the homepage, pricing calculator, or quote page. |
 | `/blog` | Blog (`src/pages/blog`) | **Hidden:** Disabled from primary navigation (`menu.json`). No immediate blog posts needed. |
-
----
-
-## 5. Navigation Architecture
-
-Configured in `src/collections/menu.json`:
-1. `Home` (`/`)
-2. `About Us` (`/about`)
-3. `Our Services` (`/features`)
-4. `Pricing` (`/pricing`)
-5. `Get a Quote` (`/contact`)
 
 ---
 
@@ -102,7 +113,7 @@ Configured in `src/collections/menu.json`:
 
 - **Framework:** Astro 5.15 / Astro 7 compatible static site.
 - **Styling:** Tailwind CSS v4 with `@tailwindcss/vite` and CSS custom properties defined in `src/styles/global.css`.
-- **Icons:** `@lucide/astro` for UI symbols.
+- **Icons:** Modern `@lucide/astro` non-deprecated components (`CircleCheck`, `CircleX`, `CircleHelp`, etc.).
 - **Key Component Conventions:**
   - Layout: `src/layouts/Layout.astro`
   - Reusable UI: `src/components/ui/Button.astro`, `Badge.astro`, `BrowserFrame.astro`.
@@ -116,20 +127,25 @@ Configured in `src/collections/menu.json`:
 ## 7. Project Status & Outstanding Work
 
 ### Completed:
+- [x] Fixed fatal prerender build crash on `/design` by supplying theme metadata in `src/config/themes.js`.
+- [x] Cleaned all TypeScript deprecation and unused import warnings across components and routes.
 - [x] Initialized and configured GitHub Codespaces.
 - [x] Brand configuration in `src/config/site.js` with UK metadata and social links.
 - [x] Corporate theme configured in `src/config/themes.js` (disabled public switcher).
 - [x] Clean conversion-driven navigation configured in `src/collections/menu.json`.
 - [x] Full custom rewrite of Homepage (`src/pages/index.astro` and `src/components/home/HeroSection.astro`).
 - [x] Full custom rewrite of Services (`src/pages/features.astro`).
-- [x] Full custom rewrite of Pricing (`src/pages/pricing.astro`) with Monthly default and Feature Comparison Matrix.
-- [x] Implemented interactive 3-tier folder-tab calculator with headcount slider, pay frequency selector, 12 equal monthly instalments, and traditional 4% operator savings comparisons.
-- [x] Implemented instant quote carry-over mechanism passing all calculations to Contact page via URL query parameters.
+- [x] Full custom rewrite of Pricing (`src/pages/pricing.astro`) with Monthly default, interactive calculator, and Feature Comparison Matrix.
+- [x] Implemented instant quote carry-over pipeline passing calculation details directly to the Contact page.
 - [x] Full custom rewrite of About Us (`src/pages/about.astro`).
-- [x] Dual-mode Contact / Quote page (`src/pages/contact.astro`): standalone-first by default, dynamic quote prefilling when originating from calculator.
+- [x] Dual-mode Contact / Quote page (`src/pages/contact.astro`).
+- [x] Customized `src/components/sections/Header.astro` (removed dark mode toggle, replaced GitHub button with prominent "Get a Quote" CTA).
+- [x] Customized `src/components/ui/Logo.astro` with TroncPAYE emblem and two-tone typography.
+- [x] Customized `src/components/sections/Footer.astro` with statutory compliance badges, direct service links, and VAT notes.
+- [x] Customized `src/pages/404.astro` error recovery page.
+- [x] Completely removed any mention of "PAYE Solutions Ltd".
 - [x] Maintained living `PROJECT_CONTEXT.md` knowledge base.
 
 ### Outstanding:
-- [ ] Update `src/components/sections/Header.astro` to remove dark-mode toggle and replace GitHub icon button with primary "Get a Quote" CTA button.
 - [ ] Connect contact form in `src/pages/contact.astro` to an active form submission backend (e.g. Formspree, Netlify Forms, or email API).
-- [ ] Review and clean up `src/components/sections/Footer.astro` and `src/pages/404.astro`.
+- [ ] Review and clean up unused demo routes (`/design`, `/elements`, `/sign-in`, `/sign-up`, `/signin`, `/signup`) prior to final production build.

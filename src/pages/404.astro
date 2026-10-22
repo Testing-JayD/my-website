@@ -1,92 +1,89 @@
 ---
 import PageLayout from "@/layouts/PageLayout.astro";
 import Button from "@/components/ui/Button.astro";
-import { ArrowLeft, Compass, House, Search, ShieldAlert } from "@lucide/astro";
+import { ArrowLeft, Calculator, Compass, House, Search, ShieldAlert } from "@lucide/astro";
 ---
 
-<PageLayout title="Page Not Found - Design-led Astro Starter" description="The page you're looking for doesn't exist.">
+<PageLayout title="Page Not Found | TroncPAYE" description="The page you're looking for doesn't exist.">
   <section class="site-container py-14 md:py-24">
-    <div class="grid min-h-[62vh] items-center gap-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(420px,1fr)]">
+    <div class="grid min-h-[60vh] items-center gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(400px,1fr)]">
       <div>
-        <p class="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-medium text-primary dark:border-primary-light/20 dark:bg-primary-light/10 dark:text-primary-light">
+        <p class="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-semibold text-primary dark:border-primary-light/20 dark:bg-primary-light/10 dark:text-primary-light">
           <ShieldAlert size={14} />
           Error 404
         </p>
 
-        <h1 class="max-w-2xl font-brand text-5xl leading-[1.04] tracking-normal text-neutral-800 dark:text-neutral-100 md:text-6xl">
-          This route does not have a page yet.
+        <h1 class="max-w-2xl text-4xl font-extrabold tracking-tight text-neutral-900 dark:text-white md:text-5xl">
+          Page not found
         </h1>
 
-        <p class="mt-5 max-w-xl text-base leading-8 text-neutral-600 dark:text-neutral-300">
-			The link may be outdated, mistyped, or still waiting to be built. Start again from one of the documented starter routes.
+        <p class="mt-4 max-w-xl text-base leading-relaxed text-neutral-600 dark:text-neutral-300">
+          The link you followed may be mistyped, outdated, or moved. Let's get you back on track to exploring our fixed-fee tronc schemes and hospitality payroll services.
         </p>
 
-        <div class="mt-7 flex flex-wrap gap-3">
+        <div class="mt-8 flex flex-wrap gap-3">
           <Button url="/" type="fill">
             <ArrowLeft size={16} /> Back to Home
           </Button>
+          <Button url="/pricing">
+            <Calculator size={16} /> Fee Calculator
+          </Button>
+          <Button url="/contact" type="outline">
+            Get a Quote
+          </Button>
         </div>
-
       </div>
 
-      <div
-        class="relative mx-auto w-full max-w-lg"
-      >
-        <div class="relative overflow-hidden rounded-2xl border border-neutral-200 bg-bg-secondary/80 p-5 shadow-[0_22px_70px_rgba(25,34,47,0.09)] backdrop-blur dark:border-neutral-700 dark:bg-bg-secondary-dark/80 dark:shadow-[0_22px_70px_rgba(0,0,0,0.24)] sm:p-6">
-          <div class="absolute inset-0 opacity-[0.08] dark:opacity-[0.12]">
-            <div class="h-full w-full bg-[linear-gradient(to_right,currentColor_1px,transparent_1px),linear-gradient(to_bottom,currentColor_1px,transparent_1px)] bg-[size:28px_28px] text-primary"></div>
+      <div class="relative mx-auto w-full max-w-lg">
+        <div class="relative overflow-hidden rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-800 dark:bg-neutral-900 sm:p-8">
+          <div class="mb-5 flex items-center justify-between gap-4 border-b border-neutral-200 pb-4 dark:border-neutral-800">
+            <div class="flex items-center gap-2">
+              <span class="h-3 w-3 rounded-full bg-rose-500"></span>
+              <span class="h-3 w-3 rounded-full bg-amber-400"></span>
+              <span class="h-3 w-3 rounded-full bg-emerald-500"></span>
+            </div>
+            <span class="text-xs font-mono font-medium text-neutral-400">route scan</span>
           </div>
 
-          <div class="relative">
-            <div class="mb-5 flex items-center justify-between gap-4 border-b border-dashed border-neutral-200 pb-4 dark:border-neutral-700">
-              <div class="flex items-center gap-2">
-                <span class="h-3 w-3 rounded-full bg-red-400"></span>
-                <span class="h-3 w-3 rounded-full bg-accent"></span>
-                <span class="h-3 w-3 rounded-full bg-primary"></span>
+          <div class="rounded-xl border border-primary/20 bg-primary/5 p-4 dark:bg-primary/10">
+            <div class="flex items-center gap-3">
+              <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white">
+                <Search size={18} />
               </div>
-              <span class="text-xs font-medium text-neutral-400 dark:text-neutral-500">route scan</span>
-            </div>
-
-            <div class="rounded-xl border border-dashed border-primary/25 bg-bg-primary/60 p-4 dark:border-primary-light/20 dark:bg-bg-primary-dark/60">
-              <div class="flex items-center gap-3">
-                <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-primary text-btn-primary-text">
-                  <Search size={19} />
-                </div>
-                <div class="min-w-0">
-                  <p class="text-xs font-medium uppercase tracking-[0.14em] text-neutral-400 dark:text-neutral-500">Requested path</p>
-                  <p id="missing-path" class="mt-1 truncate text-sm font-medium text-neutral-800 dark:text-neutral-100">/unknown-route</p>
-                </div>
+              <div class="min-w-0">
+                <p class="text-[10px] font-bold uppercase tracking-wider text-neutral-400 dark:text-neutral-500">Requested path</p>
+                <p id="missing-path" class="mt-0.5 truncate text-xs font-mono font-semibold text-neutral-800 dark:text-neutral-200">/unknown-route</p>
               </div>
             </div>
+          </div>
 
-            <div class="my-8 flex items-center justify-center">
-              <div class="relative h-32 w-full max-w-sm">
-                <div class="absolute left-4 top-1/2 h-px w-[calc(100%-2rem)] border-t border-dashed border-neutral-300 dark:border-neutral-600"></div>
-                <div class="absolute left-0 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-xl border border-primary/20 bg-white text-primary shadow-sm dark:border-primary-light/25 dark:bg-neutral-900 dark:text-primary-light">
-                  <House size={18} />
-                </div>
-                <div class="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl border border-dashed border-red-300 bg-red-50 text-red-500 dark:border-red-900/70 dark:bg-red-950/25 dark:text-red-300">
-                  <span class="font-brand text-3xl leading-none">404</span>
-                </div>
-                <div class="absolute right-0 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-xl border border-primary/20 bg-white text-primary shadow-sm dark:border-primary-light/25 dark:bg-neutral-900 dark:text-primary-light">
-                  <Compass size={18} />
-                </div>
+          <div class="my-8 flex items-center justify-center">
+            <div class="relative h-28 w-full max-w-sm">
+              <div class="absolute left-4 top-1/2 h-px w-[calc(100%-2rem)] border-t border-dashed border-neutral-300 dark:border-neutral-700"></div>
+              <div class="absolute left-0 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-xl border border-primary/20 bg-white text-primary shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
+                <House size={18} />
+              </div>
+              <div class="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl border border-dashed border-rose-300 bg-rose-50 text-rose-600 dark:border-rose-900/60 dark:bg-rose-950/30 dark:text-rose-400">
+                <span class="text-2xl font-extrabold leading-none">404</span>
+              </div>
+              <div class="absolute right-0 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-xl border border-primary/20 bg-white text-primary shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
+                <Compass size={18} />
               </div>
             </div>
+          </div>
 
-            <div class="grid gap-3 text-sm">
-              <div class="flex items-center justify-between rounded-lg border border-neutral-200 bg-white/70 px-3 py-2 dark:border-neutral-700 dark:bg-neutral-900/40">
-                <span class="text-neutral-500 dark:text-neutral-400">DNS</span>
-                <span class="font-medium text-green-600 dark:text-green-300">reachable</span>
-              </div>
-              <div class="flex items-center justify-between rounded-lg border border-neutral-200 bg-white/70 px-3 py-2 dark:border-neutral-700 dark:bg-neutral-900/40">
-                <span class="text-neutral-500 dark:text-neutral-400">Page route</span>
-                <span class="font-medium text-red-500 dark:text-red-300">missing</span>
-              </div>
-              <div class="flex items-center justify-between rounded-lg border border-neutral-200 bg-white/70 px-3 py-2 dark:border-neutral-700 dark:bg-neutral-900/40">
-                <span class="text-neutral-500 dark:text-neutral-400">Next step</span>
-                <span class="font-medium text-primary dark:text-primary-light">choose a known path</span>
-              </div>
+          <div class="grid gap-2 text-xs">
+            <div class="flex items-center justify-between rounded-lg border border-neutral-200/80 bg-neutral-50/70 px-3 py-2 dark:border-neutral-800 dark:bg-neutral-800/40">
+              <span class="text-neutral-500 dark:text-neutral-400">Server status</span>
+              <span class="font-bold text-emerald-600 dark:text-emerald-400">Operational</span>
+            </div>
+            <div class="flex items-center justify-between rounded-lg border border-neutral-200/80 bg-neutral-50/70 px-3 py-2 dark:border-neutral-800 dark:bg-neutral-800/40">
+              <span class="text-neutral-500 dark:text-neutral-400">Page status</span>
+              <span class="font-bold text-rose-500">Not found (404)</span>
+            </div>
+            <div class="flex items-center justify-between rounded-lg border border-neutral-200/80 bg-neutral-50/70 px-3 py-2 dark:border-neutral-800 dark:bg-neutral-800/40">
+              <span class="text-neutral-500 dark:text-neutral-400">Recommended action</span>
+              <span class="font-bold text-primary">Return to homepage or fee calculator</span>
             </div>
           </div>
         </div>
