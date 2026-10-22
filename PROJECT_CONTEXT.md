@@ -23,37 +23,29 @@ This file is the living, single source of truth for the TroncPAYE website projec
 
 ---
 
-## 2. Pricing & Calculator Architecture
+## 2. Pricing Calculator & Quote Carry-Over Architecture
 
-The Pricing page (`src/pages/pricing.astro`) includes a client-side calculator with a 3-folder tab interface:
+### 1. Interactive 3-Tier Calculator (`src/pages/pricing.astro`):
+- **Folder Tabs:** `Tronc Master`, `Tronc & PAYE` (Recommended), and `PAYE Only`.
+- **Inputs:**
+  - Headcount slider (1–50 employees, with 50+ triggering an enterprise quote prompt).
+  - Pay Frequency selector: **Defaults to Monthly (12 runs)** to present lower entry fee points upfront, alongside Four-Weekly (13 runs), Fortnightly (26 runs), Weekly (52 runs), and Combination.
+  - Tips per period slider (£500–£50,000) comparing against traditional 4% commission operators to calculate estimated annual savings.
+- **Rate Matrices (per pay run):**
+  - PAYE: 1–4 (£20 W, £25 F, £30 4W, £30 M), 5–10 (£25 W, £30 F, £40 4W, £40 M), 11–49 (Base + £3 per extra payslip).
+  - Tronc: 1–4 (£10 W, £12.50 F, £15 4W, £15 M), 5–10 (£12.50 W, £15 F, £20 4W, £20 M), 11–49 (Base + £1.50 per extra payslip).
+  - Annualised 12 equal monthly instalments formula: `(Total Run Fee × Annual Runs) / 12`.
+  - Ancillary: Setup fee £75–£100, Year-End & P60s £2/employee (min £35). Net of VAT.
+- **Feature Comparison Matrix:**
+  - Replaced former carded packages below calculator with a full 3-column capability table across Tronc Governance, Payroll Bureau, and Single-Bureau Integration.
 
-### 1. Calculation Modes (Tabs):
-- **Tronc Master:** Calculates fixed Tronc administration fees only.
-- **Tronc & PAYE:** Calculates the combined unified bureau fee (PAYE + Tronc).
-- **PAYE Only:** Calculates pure hospitality payroll bureau fees.
-
-### 2. Pricing Matrices:
-- **PAYE Bureau Rates (per pay run):**
-  - Band 1–4 Employees: Weekly £20, Fortnightly £25, 4-Weekly £30, Monthly £30
-  - Band 5–10 Employees: Weekly £25, Fortnightly £30, 4-Weekly £40, Monthly £40
-  - Band 11–49 Employees: Base (5–10) + £3 per additional payslip per run
-  - 50+ Employees: Triggers dedicated enterprise custom quote view
-- **Tronc Administration Rates (per pay run):**
-  - Band 1–4 Employees: Weekly £10, Fortnightly £12.50, 4-Weekly £15, Monthly £15
-  - Band 5–10 Employees: Weekly £12.50, Fortnightly £15, 4-Weekly £20, Monthly £20
-  - Band 11–49 Employees: Base (5–10) + £1.50 per additional payslip per run
-- **Annualised Instalment Formula:**
-  - `Monthly Instalment = (Fee Per Run × Annual Pay Runs) / 12`
-  - Annual Pay Runs: Weekly (52), Fortnightly (26), Four-Weekly (13), Monthly (12).
-- **Additional Service Fees:**
-  - Setup fee: £75–£100 one-off based on complexity.
-  - Year-end processing & P60s: £2 per employee (minimum charge £35).
-  - All fees net of VAT.
-
-### 3. Savings Comparison (Tronc Master & Combined):
-- Tip Slider: £500 to £50,000 per period.
-- Benchmarks against traditional **4% tip commission operators**.
-- Computes and displays dynamic **Estimated Annual Savings** (`Save £X / yr`).
+### 2. Standalone & Quote-Driven Contact Flow (`src/pages/contact.astro`):
+- **Standalone Mode (Direct Visitors):** Displays a clean, generic quote-request interface ("Get a Free Tailored Quote") with standard guidance and empty form inputs.
+- **Quote-Driven Mode (`?quote=true`):**
+  1. Headlines dynamically switch to "Lock In Your Fixed-Fee Agreement" and "Confirm & Request Onboarding Pack".
+  2. A **"Locked-In Calculator Estimate"** banner appears above the form displaying the exact monthly fee, headcount, schedule, and savings.
+  3. The **Headcount** and **Service Required** dropdowns automatically select matching options.
+  4. The **Notes/Message** textarea is automatically populated with a complete itemized quote breakdown ready to submit directly for onboarding.
 
 ---
 
@@ -79,7 +71,6 @@ The Pricing page (`src/pages/pricing.astro`) includes a client-side calculator w
 - **Design Tokens & Theme System:**
   - Theme: Custom `troncpaye` theme defined in `src/config/themes.js`.
   - `showThemeSwitcher: false` and `persistUserSelection: false` are configured to lock the public site into corporate TroncPAYE navy.
-  - Dark mode remains supported via `.dark` class.
 
 ---
 
@@ -89,9 +80,9 @@ The Pricing page (`src/pages/pricing.astro`) includes a client-side calculator w
 | --- | --- | --- |
 | `/` | Home (`src/pages/index.astro`) | **Complete:** Hero with value breakdown, 4 core value pillars, comparison vs traditional operators, 4-step workflow, lead capture banner. |
 | `/features` | Our Services (`src/pages/features.astro`) | **Complete:** Deep dive into 3 offerings: Independent TroncMastery, Hospitality Payroll Bureau, and the Combined Single-Bureau Scheme. |
-| `/pricing` | Pricing & Packages (`src/pages/pricing.astro`) | **Complete:** 3-tier folder-tab calculator (headcount slider, pay frequency, tips savings slider against 4% operators), 3 summary package cards, FAQ, and quote CTA. |
+| `/pricing` | Pricing & Packages (`src/pages/pricing.astro`) | **Complete:** 3-tier folder-tab calculator (defaults to Monthly), dynamic savings slider, Side-by-Side Feature Comparison Table, FAQ, and quote CTA. |
 | `/about` | About Us (`src/pages/about.astro`) | **Complete:** The story behind TroncPAYE, three-stage evolution, four operational principles, Tips Act 2023 legal compliance overview, and partner CTA. |
-| `/contact` | Get a Quote / Contact (`src/pages/contact.astro`) | **Complete:** Direct contact information, SLA response time, and an interactive lead capture form gathering headcount, service requirements, and venue notes. |
+| `/contact` | Get a Quote / Contact (`src/pages/contact.astro`) | **Complete:** Dual-mode page (standalone generic enquiry by default, or auto-populating locked-in quote review when arriving from the pricing calculator). |
 | `/blog` | Blog (`src/pages/blog`) | **Hidden:** Disabled from primary navigation (`menu.json`). No immediate blog posts needed. |
 
 ---
@@ -131,13 +122,14 @@ Configured in `src/collections/menu.json`:
 - [x] Clean conversion-driven navigation configured in `src/collections/menu.json`.
 - [x] Full custom rewrite of Homepage (`src/pages/index.astro` and `src/components/home/HeroSection.astro`).
 - [x] Full custom rewrite of Services (`src/pages/features.astro`).
-- [x] Full custom rewrite of Pricing (`src/pages/pricing.astro`).
+- [x] Full custom rewrite of Pricing (`src/pages/pricing.astro`) with Monthly default and Feature Comparison Matrix.
 - [x] Implemented interactive 3-tier folder-tab calculator with headcount slider, pay frequency selector, 12 equal monthly instalments, and traditional 4% operator savings comparisons.
+- [x] Implemented instant quote carry-over mechanism passing all calculations to Contact page via URL query parameters.
 - [x] Full custom rewrite of About Us (`src/pages/about.astro`).
-- [x] Full custom rewrite of Contact / Quote page with lead form (`src/pages/contact.astro`).
-- [x] Created and maintained `PROJECT_CONTEXT.md` knowledge base.
+- [x] Dual-mode Contact / Quote page (`src/pages/contact.astro`): standalone-first by default, dynamic quote prefilling when originating from calculator.
+- [x] Maintained living `PROJECT_CONTEXT.md` knowledge base.
 
 ### Outstanding:
-- [ ] Review and clean up unused demo routes (`/design`, `/elements`, `/sign-in`, `/sign-up`, `/signin`, `/signup`) to streamline production build.
-- [ ] Connect contact form in `src/pages/contact.astro` to an active form submission endpoint (e.g. Formspree, Netlify Forms, or email API).
-- [ ] Insert official company registration number and telephone number once available.
+- [ ] Update `src/components/sections/Header.astro` to remove dark-mode toggle and replace GitHub icon button with primary "Get a Quote" CTA button.
+- [ ] Connect contact form in `src/pages/contact.astro` to an active form submission backend (e.g. Formspree, Netlify Forms, or email API).
+- [ ] Review and clean up `src/components/sections/Footer.astro` and `src/pages/404.astro`.

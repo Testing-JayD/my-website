@@ -7,11 +7,13 @@ import {
 	ArrowRight,
 	Banknote,
 	Calculator,
+	Check,
 	CheckCircle2,
 	Coins,
 	FileText,
 	HelpCircle,
 	Info,
+	Minus,
 	Percent,
 	PiggyBank,
 	Scale,
@@ -20,64 +22,38 @@ import {
 	TrendingDown,
 } from "@lucide/astro";
 
-const packages = [
+// Feature Comparison Matrix Data
+const comparisonSections = [
 	{
-		name: "TroncMaster Only",
-		badge: "Independent Governance",
-		description: "For venues with an existing payroll bureau that need legal, independent TroncMaster oversight.",
-		price: "Fixed Fee",
-		priceSub: "Per month (tailored to staff headcount)",
-		highlight: false,
+		category: "Tronc & Gratuities Governance",
 		features: [
-			"100% Tips Act 2023 compliance",
-			"HMRC-compliant independent status",
-			"Zero % cut taken from your tips",
-			"Custom Tronc Agreement & ruleset",
-			"Class 1 NIC exemption governance",
-			"Annual compliance review & reporting",
-			"Direct communication with your existing bureau",
+			{ name: "100% Tips Act 2023 Statutory Compliance", tronc: true, combined: true, paye: false },
+			{ name: "Independent TroncMaster Status (HMRC recognized)", tronc: true, combined: true, paye: false },
+			{ name: "Class 1 National Insurance Exemption (0% NIC on tips)", tronc: true, combined: true, paye: false },
+			{ name: "Fixed Monthly Fee (0% commission deducted from tips)", tronc: true, combined: true, paye: false },
+			{ name: "Custom Tronc Ruleset & Committee Agreement", tronc: true, combined: true, paye: false },
+			{ name: "Audit Trail & Annual Tip Transparency Reporting", tronc: true, combined: true, paye: false },
 		],
-		ctaText: "Get a Tronc Quote",
-		ctaUrl: "/contact?package=tronc",
 	},
 	{
-		name: "Combined Tronc & Payroll",
-		badge: "Most Popular & Cost-Effective",
-		description: "The complete single-bureau solution. Tronc and PAYE managed by one team under one fixed agreement.",
-		price: "All-in-One",
-		priceSub: "Bundled monthly fee with zero tip deductions",
-		highlight: true,
+		category: "Hospitality Payroll Bureau",
 		features: [
-			"Full Payroll Bureau + Independent TroncMaster",
-			"Single monthly data submission",
-			"Itemised digital payslips (Wages + Tronc)",
-			"Full RTI submissions & HMRC liaison",
-			"Auto-enrolment pension administration",
-			"Complete Tips Act 2023 protection",
-			"Guaranteed zero commission on tips",
-			"Dedicated Senior Payroll & Tronc Specialist",
+			{ name: "Full PAYE, Income Tax & NI Calculations", tronc: false, combined: true, paye: true },
+			{ name: "HMRC Real-Time Information (RTI) Submissions", tronc: false, combined: true, paye: true },
+			{ name: "Pension Auto-Enrolment & Contributions Filing", tronc: false, combined: true, paye: true },
+			{ name: "Variable Rota & Zero-Hour Hospitality Handling", tronc: false, combined: true, paye: true },
+			{ name: "Secure 24/7 Employee Cloud Payslip Portal", tronc: false, combined: true, paye: true },
+			{ name: "Year-End Processing & P60 Production", tronc: false, combined: true, paye: true },
 		],
-		ctaText: "Get a Combined Quote",
-		ctaUrl: "/contact?package=combined",
 	},
 	{
-		name: "Payroll Bureau Only",
-		badge: "Pure Hospitality Payroll",
-		description: "Specialist payroll processing for hospitality venues that do not operate a tronc scheme.",
-		price: "Per Payslip",
-		priceSub: "Transparent tiered per-employee rates",
-		highlight: false,
+		category: "Unified Scheme Integration",
 		features: [
-			"Standard hospitality PAYE management",
-			"Weekly, fortnightly, or monthly pay runs",
-			"HMRC RTI filing & Year-End submissions",
-			"Pension auto-enrolment management",
-			"Secure employee cloud payslip portal",
-			"National Minimum Wage rate checks",
-			"New starters, leavers, and P45 processing",
+			{ name: "Single Monthly Data Upload (Hours + Card Tips)", tronc: false, combined: true, paye: false },
+			{ name: "Unified Payslip (Hourly Wage + Tax-Free NIC Tronc)", tronc: false, combined: true, paye: false },
+			{ name: "Zero Cross-Vendor Synchronization Delays", tronc: false, combined: true, paye: false },
+			{ name: "Dedicated Senior Payroll & Tronc Specialist", tronc: true, combined: true, paye: true },
 		],
-		ctaText: "Get a Payroll Quote",
-		ctaUrl: "/contact?package=payroll",
 	},
 ];
 
@@ -193,23 +169,23 @@ const faqs = [
 							</div>
 						</div>
 
-						<!-- Input 2: Pay Frequency Selection -->
+						<!-- Input 2: Pay Frequency Selection (DEFAULTS TO MONTHLY) -->
 						<div>
 							<label class="block text-sm font-bold text-neutral-900 dark:text-white mb-2">
 								Pay Frequency
 							</label>
 							<div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
-								<button type="button" class="freq-btn rounded-lg border border-neutral-300 py-2.5 px-3 text-xs font-semibold transition-all hover:border-primary active" data-freq="weekly" data-runs="52">
-									Weekly (52 runs)
-								</button>
-								<button type="button" class="freq-btn rounded-lg border border-neutral-300 py-2.5 px-3 text-xs font-semibold transition-all hover:border-primary" data-freq="fortnightly" data-runs="26">
-									Fortnightly (26 runs)
+								<button type="button" class="freq-btn rounded-lg border border-neutral-300 py-2.5 px-3 text-xs font-semibold transition-all hover:border-primary active" data-freq="monthly" data-runs="12">
+									Monthly (12 runs)
 								</button>
 								<button type="button" class="freq-btn rounded-lg border border-neutral-300 py-2.5 px-3 text-xs font-semibold transition-all hover:border-primary" data-freq="four-weekly" data-runs="13">
 									Four-Weekly (13 runs)
 								</button>
-								<button type="button" class="freq-btn rounded-lg border border-neutral-300 py-2.5 px-3 text-xs font-semibold transition-all hover:border-primary" data-freq="monthly" data-runs="12">
-									Monthly (12 runs)
+								<button type="button" class="freq-btn rounded-lg border border-neutral-300 py-2.5 px-3 text-xs font-semibold transition-all hover:border-primary" data-freq="fortnightly" data-runs="26">
+									Fortnightly (26 runs)
+								</button>
+								<button type="button" class="freq-btn rounded-lg border border-neutral-300 py-2.5 px-3 text-xs font-semibold transition-all hover:border-primary" data-freq="weekly" data-runs="52">
+									Weekly (52 runs)
 								</button>
 								<button type="button" class="freq-btn col-span-2 sm:col-span-2 rounded-lg border border-dashed border-primary/40 bg-primary/5 py-2.5 px-3 text-xs font-semibold text-primary transition-all hover:bg-primary/10" data-freq="combination">
 									Combination (e.g. Weekly + Monthly)
@@ -317,6 +293,7 @@ const faqs = [
 							</p>
 							<div class="mt-6">
 								<a
+									id="custom-quote-btn"
 									href="/contact?service=custom"
 									class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-bold text-white shadow transition-all hover:bg-primary-strong"
 								>
@@ -334,67 +311,90 @@ const faqs = [
 	</section>
 
 	<!-- =============================================
-	     PACKAGES OVERVIEW CARDS
+	     PACKAGE FEATURE COMPARISON TABLE
 	     ============================================= -->
 	<section class="site-container py-12 md:py-16">
 		<SectionHeader
-			title="Fixed Packages At a Glance"
-			description="Compare the key features included in each service tier."
+			title="Compare Package Inclusions"
+			description="A transparent breakdown of capabilities across our three service models."
 		/>
 
-		<div class="mt-10 grid gap-8 lg:grid-cols-3">
-			{packages.map((pkg) => (
-				<div
-					class:list={[
-						"relative flex flex-col justify-between rounded-2xl border p-8 shadow-sm transition-all duration-300",
-						pkg.highlight
-							? "border-primary bg-primary/[0.03] ring-2 ring-primary dark:border-primary dark:bg-primary/10 shadow-md"
-							: "border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900",
-					]}
-				>
-					{pkg.highlight && (
-						<div class="absolute -top-3.5 left-1/2 -translate-x-1/2">
-							<span class="whitespace-nowrap rounded-full bg-primary px-3.5 py-1 text-xs font-bold text-white shadow-sm">
-								{pkg.badge}
-							</span>
-						</div>
-					)}
-
-					<div>
-						{!pkg.highlight && (
-							<span class="inline-block rounded-md bg-neutral-100 px-2.5 py-1 text-xs font-semibold text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 mb-3">
-								{pkg.badge}
-							</span>
-						)}
-						<h2 class="text-2xl font-bold text-neutral-900 dark:text-white">{pkg.name}</h2>
-						<p class="mt-2 text-xs leading-relaxed text-neutral-600 dark:text-neutral-400 min-h-[36px]">
-							{pkg.description}
-						</p>
-
-						<div class="my-6 border-y border-neutral-100 py-4 dark:border-neutral-800">
-							<span class="text-3xl font-extrabold text-neutral-900 dark:text-white">{pkg.price}</span>
-							<p class="mt-1 text-xs text-neutral-500 dark:text-neutral-400">{pkg.priceSub}</p>
-						</div>
-
-						<ul class="space-y-3 mb-8">
-							{pkg.features.map((item) => (
-								<li class="flex items-start gap-2.5 text-xs text-neutral-700 dark:text-neutral-300">
-									<CheckCircle2 class="h-4 w-4 flex-none text-primary mt-0.5" />
-									<span>{item}</span>
-								</li>
+		<div class="mt-10 overflow-x-auto rounded-2xl border border-neutral-200 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
+			<table class="w-full min-w-[700px] text-left text-sm border-collapse">
+				<thead>
+					<tr class="border-b border-neutral-200 dark:border-neutral-800 bg-neutral-50/70 dark:bg-neutral-800/50">
+						<th class="p-5 font-bold text-neutral-900 dark:text-white w-2/5">Feature & Scope</th>
+						<th class="p-5 font-bold text-center text-neutral-800 dark:text-neutral-200 w-1/5">
+							TroncMaster Only
+						</th>
+						<th class="p-5 font-extrabold text-center text-primary dark:text-primary-light bg-primary/5 dark:bg-primary/10 w-1/5 border-x border-primary/20">
+							<span class="inline-block rounded-full bg-primary px-2.5 py-0.5 text-[10px] font-bold text-white mb-1">Recommended</span><br />
+							Combined Tronc & PAYE
+						</th>
+						<th class="p-5 font-bold text-center text-neutral-800 dark:text-neutral-200 w-1/5">
+							Hospitality PAYE Only
+						</th>
+					</tr>
+				</thead>
+				<tbody class="divide-y divide-neutral-200 dark:divide-neutral-800 text-xs">
+					{comparisonSections.map((sec) => (
+						<>
+							<tr class="bg-neutral-100/60 dark:bg-neutral-800/70">
+								<td colspan="4" class="py-2.5 px-5 font-bold uppercase tracking-wider text-[11px] text-neutral-500 dark:text-neutral-400">
+									{sec.category}
+								</td>
+							</tr>
+							{sec.features.map((feat) => (
+								<tr class="hover:bg-neutral-50/50 dark:hover:bg-neutral-800/30 transition-colors">
+									<td class="py-3 px-5 text-neutral-700 dark:text-neutral-300 font-medium">
+										{feat.name}
+									</td>
+									<td class="py-3 px-5 text-center">
+										{feat.tronc ? (
+											<Check class="h-4 w-4 text-emerald-600 inline-block" />
+										) : (
+											<Minus class="h-4 w-4 text-neutral-300 dark:text-neutral-600 inline-block" />
+										)}
+									</td>
+									<td class="py-3 px-5 text-center bg-primary/[0.02] dark:bg-primary/[0.05] border-x border-primary/20">
+										{feat.combined ? (
+											<Check class="h-4 w-4 text-primary font-bold inline-block" />
+										) : (
+											<Minus class="h-4 w-4 text-neutral-300 dark:text-neutral-600 inline-block" />
+										)}
+									</td>
+									<td class="py-3 px-5 text-center">
+										{feat.paye ? (
+											<Check class="h-4 w-4 text-emerald-600 inline-block" />
+										) : (
+											<Minus class="h-4 w-4 text-neutral-300 dark:text-neutral-600 inline-block" />
+										)}
+									</td>
+								</tr>
 							))}
-						</ul>
-					</div>
-
-					<Button
-						url={pkg.ctaUrl}
-						type={pkg.highlight ? "fill" : "outline"}
-						className="w-full justify-center text-center"
-					>
-						{pkg.ctaText} <ArrowRight size={14} />
-					</Button>
-				</div>
-			))}
+						</>
+					))}
+					<!-- Bottom CTA Row -->
+					<tr class="bg-neutral-50/60 dark:bg-neutral-800/40">
+						<td class="p-5 font-bold text-neutral-900 dark:text-white">Get Started</td>
+						<td class="p-5 text-center">
+							<a href="/contact?package=tronc" class="inline-block rounded-lg border border-neutral-300 px-3 py-1.5 text-xs font-bold text-neutral-800 hover:border-primary hover:text-primary dark:border-neutral-700 dark:text-neutral-200">
+								Choose Tronc
+							</a>
+						</td>
+						<td class="p-5 text-center bg-primary/5 dark:bg-primary/10 border-x border-primary/20">
+							<a href="/contact?package=combined" class="inline-block rounded-lg bg-primary px-3 py-1.5 text-xs font-bold text-white shadow-sm hover:bg-primary-strong">
+								Choose Combined
+							</a>
+						</td>
+						<td class="p-5 text-center">
+							<a href="/contact?package=payroll" class="inline-block rounded-lg border border-neutral-300 px-3 py-1.5 text-xs font-bold text-neutral-800 hover:border-primary hover:text-primary dark:border-neutral-700 dark:text-neutral-200">
+								Choose Payroll
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</section>
 
@@ -455,10 +455,6 @@ const faqs = [
 
 <script>
 	// Pricing Data Matrices
-	// PAYE rate per pay run by frequency:
-	// Band 1-4: Weekly £20, Fortnightly £25, 4-Weekly £30, Monthly £30
-	// Band 5-10: Weekly £25, Fortnightly £30, 4-Weekly £40, Monthly £40
-	// Band 11-49: Base (5-10) + £3 per extra payslip per run
 	const payeRates = {
 		weekly: { band1_4: 20, band5_10: 25, runs: 52 },
 		fortnightly: { band1_4: 25, band5_10: 30, runs: 26 },
@@ -466,10 +462,6 @@ const faqs = [
 		monthly: { band1_4: 30, band5_10: 40, runs: 12 },
 	};
 
-	// Tronc Admin fixed fee per pay run:
-	// Band 1-4: Weekly £10, Fortnightly £12.50, 4-Weekly £15, Monthly £15
-	// Band 5-10: Weekly £12.50, Fortnightly £15, 4-Weekly £20, Monthly £20
-	// Band 11-49: Base (5-10) + £1.50 per extra payslip per run
 	const troncRates = {
 		weekly: { band1_4: 10, band5_10: 12.5, runs: 52 },
 		fortnightly: { band1_4: 12.5, band5_10: 15, runs: 26 },
@@ -483,8 +475,22 @@ const faqs = [
 		paye: "<strong>Hospitality Payroll Bureau:</strong> Dedicated hospitality PAYE processing for venues without a tronc scheme. High-turnover rota handling, pension auto-enrolment, and full HMRC RTI submissions.",
 	};
 
+	const tierNames: Record<string, string> = {
+		tronc: "TroncMaster Only",
+		combined: "Combined Tronc & Payroll",
+		paye: "Hospitality Payroll Bureau Only",
+	};
+
+	const freqNames: Record<string, string> = {
+		weekly: "Weekly (52 pay runs/yr)",
+		fortnightly: "Fortnightly (26 pay runs/yr)",
+		"four-weekly": "Four-Weekly (13 pay runs/yr)",
+		monthly: "Monthly (12 pay runs/yr)",
+	};
+
+	// DEFAULT TO COMBINED AND MONTHLY
 	let currentTier = "combined";
-	let currentFreq = "weekly";
+	let currentFreq = "monthly";
 	let currentEmployees = 12;
 	let currentTips = 4000;
 
@@ -509,6 +515,7 @@ const faqs = [
 	const tradFeeDisplay = document.getElementById("trad-fee-display")!;
 	const annualSavingsDisplay = document.getElementById("annual-savings-display")!;
 	const quoteCtaBtn = document.getElementById("quote-cta-btn") as HTMLAnchorElement;
+	const customQuoteBtn = document.getElementById("custom-quote-btn") as HTMLAnchorElement;
 
 	function calculate() {
 		tierDesc.innerHTML = tierDescriptions[currentTier as keyof typeof tierDescriptions];
@@ -528,6 +535,7 @@ const faqs = [
 			calcResultCustom.classList.remove("hidden");
 			customTitle.textContent = "Combination Scheme Quote";
 			customDesc.textContent = "You operate multiple payroll schedules (e.g. weekly for front-of-house and monthly for management). Contact us for a unified multi-schedule quote.";
+			customQuoteBtn.href = `/contact?tier=${currentTier}&headcount=${currentEmployees}&freq=combination&customType=multi-frequency`;
 			return;
 		}
 
@@ -537,6 +545,7 @@ const faqs = [
 			calcResultCustom.classList.remove("hidden");
 			customTitle.textContent = "Enterprise 50+ Custom Quote";
 			customDesc.textContent = "For operations with 50+ employees or multi-site venue groups, we provide preferential volume discounts and bespoke SLA terms.";
+			customQuoteBtn.href = `/contact?tier=${currentTier}&headcount=50%2B&freq=${currentFreq}&customType=enterprise`;
 			return;
 		}
 
@@ -613,21 +622,36 @@ const faqs = [
 		calcBreakdown.innerHTML = breakdownHTML;
 
 		// Calculate Traditional 4% operator fee & savings
+		let annualSavings = 0;
 		if (currentTier !== "paye") {
 			const tradFeePerRun = currentTips * 0.04;
 			const tradMonthlyFee = (tradFeePerRun * runsPerYear) / 12;
-
-			// Comparing against the tronc component our fee charges:
 			const ourTroncMonthly = (troncPerRun * runsPerYear) / 12;
 			const monthlySavings = Math.max(0, tradMonthlyFee - ourTroncMonthly);
-			const annualSavings = monthlySavings * 12;
+			annualSavings = Math.round(monthlySavings * 12);
 
 			tradFeeDisplay.textContent = `£${tradMonthlyFee.toFixed(2)} / mo`;
-			annualSavingsDisplay.textContent = `Save £${Math.round(annualSavings).toLocaleString()} / yr`;
+			annualSavingsDisplay.textContent = `Save £${annualSavings.toLocaleString()} / yr`;
 		}
 
-		// Update CTA link with query params
-		quoteCtaBtn.href = `/contact?tier=${currentTier}&headcount=${currentEmployees}&freq=${currentFreq}&monthly=${monthlyFee.toFixed(0)}`;
+		// Build rich URL parameters so Contact page can prefill quote details
+		const params = new URLSearchParams({
+			quote: "true",
+			tier: currentTier,
+			tierName: tierNames[currentTier] || currentTier,
+			headcount: currentEmployees.toString(),
+			freq: currentFreq,
+			freqName: freqNames[currentFreq] || currentFreq,
+			runFee: totalPerRun.toFixed(2),
+			monthly: monthlyFee.toFixed(2),
+		});
+
+		if (currentTier !== "paye") {
+			params.set("tips", currentTips.toString());
+			params.set("savings", annualSavings.toString());
+		}
+
+		quoteCtaBtn.href = `/contact?${params.toString()}`;
 	}
 
 	// Tab click listeners
@@ -645,7 +669,7 @@ const faqs = [
 		btn.addEventListener("click", () => {
 			freqButtons.forEach((b) => b.classList.remove("active"));
 			btn.classList.add("active");
-			currentFreq = btn.dataset.freq || "weekly";
+			currentFreq = btn.dataset.freq || "monthly";
 			calculate();
 		});
 	});

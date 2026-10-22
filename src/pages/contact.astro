@@ -6,53 +6,58 @@ import Badge from "@/components/ui/Badge.astro";
 import { siteConfig } from "@/config/site";
 import {
 	ArrowRight,
+	Calculator,
 	CheckCircle2,
 	Clock,
+	Coins,
+	FileSpreadsheet,
 	Mail,
 	MessageSquare,
 	Phone,
 	ShieldCheck,
 	Sparkles,
+	TrendingDown,
 } from "@lucide/astro";
 ---
 
 <Layout
 	title="Get a Quote | TroncPAYE"
-	description="Request a free, fixed-monthly quote for independent TroncMaster services and payroll bureau management for your venue."
+	description="Request a free, fixed-monthly quote for independent TroncMaster oversight and hospitality payroll bureau delivery."
 	keywords="get tronc quote, restaurant payroll quote, troncmaster contact, hospitality payroll pricing"
 >
-	<!-- Page Header -->
+	<!-- Page Header: Standalone by Default -->
 	<section class="site-container pt-16 pb-8 text-center md:pt-24 md:pb-12">
 		<div class="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-semibold text-primary">
 			<MessageSquare class="h-3.5 w-3.5" /> Fast 24-Hour Turnaround
 		</div>
-		<h1 class="mx-auto mb-4 max-w-3xl text-4xl font-extrabold tracking-tight md:text-5xl lg:text-6xl text-neutral-900 dark:text-white">
-			Get Your <span class="text-primary">Fixed-Fee Quote</span>
+		<h1 id="page-main-title" class="mx-auto mb-4 max-w-3xl text-4xl font-extrabold tracking-tight md:text-5xl lg:text-6xl text-neutral-900 dark:text-white">
+			Get a Free <span class="text-primary">Tailored Quote</span>
 		</h1>
-		<p class="mx-auto max-w-2xl text-base md:text-lg text-neutral-600 dark:text-neutral-300">
-			Tell us about your venue. We will calculate your exact fixed monthly cost and estimate your annual savings compared to percentage-based operators.
+		<p id="page-sub-title" class="mx-auto max-w-2xl text-base md:text-lg text-neutral-600 dark:text-neutral-300">
+			Tell us about your venue and team structure. We will provide an exact, itemised fixed monthly quote with zero obligation.
 		</p>
 	</section>
 
 	<section class="site-container py-8 md:py-16">
 		<div class="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+			
 			<!-- Left Column: Information & Trust -->
 			<div class="flex flex-col justify-between">
 				<div>
 					<h2 class="text-2xl font-bold text-neutral-900 dark:text-white md:text-3xl">
-						Why Request a Quote With TroncPAYE?
+						Seamless Onboarding For UK Venues
 					</h2>
 					<p class="mt-3 text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
-						Whether you run a single independent restaurant or an expanding multi-site pub group, we tailor your agreement to your exact team size. No hidden setup penalties and zero commission on your tip revenue.
+						We coordinate the smooth transfer of your payroll data and tronc ruleset. No payroll delays, no double data entry, and zero commission deducted from your staff's tips.
 					</p>
 
 					<div class="mt-8 space-y-4">
 						<div class="flex items-start gap-3 rounded-xl border border-neutral-200/80 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-900">
 							<CheckCircle2 class="h-5 w-5 text-primary flex-none mt-0.5" />
 							<div>
-								<h3 class="text-sm font-bold text-neutral-900 dark:text-white">100% Fixed Monthly Retainer</h3>
+								<h3 class="text-sm font-bold text-neutral-900 dark:text-white">12 Equal Monthly Instalments</h3>
 								<p class="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
-									Never pay a percentage of tips. Your costs remain predictable year-round.
+									Never pay fluctuating percentages. Your monthly administrative cost stays predictable year-round.
 								</p>
 							</div>
 						</div>
@@ -60,9 +65,9 @@ import {
 						<div class="flex items-start gap-3 rounded-xl border border-neutral-200/80 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-900">
 							<CheckCircle2 class="h-5 w-5 text-primary flex-none mt-0.5" />
 							<div>
-								<h3 class="text-sm font-bold text-neutral-900 dark:text-white">Tips Act 2023 Guarantee</h3>
+								<h3 class="text-sm font-bold text-neutral-900 dark:text-white">Tips Act 2023 Statutory Protection</h3>
 								<p class="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
-									Full independent governance shielding you from compliance challenges.
+									Independent TroncMaster governance shielding your business from HMRC challenges.
 								</p>
 							</div>
 						</div>
@@ -70,9 +75,9 @@ import {
 						<div class="flex items-start gap-3 rounded-xl border border-neutral-200/80 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-900">
 							<CheckCircle2 class="h-5 w-5 text-primary flex-none mt-0.5" />
 							<div>
-								<h3 class="text-sm font-bold text-neutral-900 dark:text-white">Single Point of Contact</h3>
+								<h3 class="text-sm font-bold text-neutral-900 dark:text-white">Dedicated Account Specialist</h3>
 								<p class="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
-									One dedicated senior specialist handles both your payroll and your tronc scheme.
+									One direct point of contact overseeing both PAYE calculations and Tronc distributions.
 								</p>
 							</div>
 						</div>
@@ -91,7 +96,7 @@ import {
 						</div>
 						<div class="flex items-center gap-3 text-xs text-neutral-500 dark:text-neutral-400">
 							<Clock class="h-4 w-4 text-primary flex-none" />
-							<span>Mon - Fri: 9:00 AM – 5:30 PM (Quotes within 24 business hours)</span>
+							<span>Mon - Fri: 9:00 AM – 5:30 PM (Response within 24 business hours)</span>
 						</div>
 					</div>
 				</div>
@@ -99,9 +104,51 @@ import {
 
 			<!-- Right Column: Interactive Lead Form -->
 			<div class="rounded-2xl border border-neutral-200/80 bg-white p-8 shadow-sm dark:border-neutral-800 dark:bg-neutral-900 md:p-10">
-				<h3 class="text-xl font-bold text-neutral-900 dark:text-white mb-1">Tell Us About Your Venue</h3>
-				<p class="text-xs text-neutral-500 dark:text-neutral-400 mb-6">
-					Complete this quick form and our specialists will prepare your itemized comparison and quote.
+				
+				<!-- DYNAMIC QUOTE SUMMARY BANNER (Hidden unless ?quote=true is in URL) -->
+				<div id="locked-quote-card" class="hidden mb-6 rounded-xl border border-primary/30 bg-primary/5 p-5 dark:border-primary/40 dark:bg-primary/10">
+					<div class="flex items-start justify-between gap-4">
+						<div class="flex items-center gap-2 text-primary font-bold text-sm">
+							<Calculator class="h-5 w-5" />
+							<span>Locked-In Calculator Estimate</span>
+						</div>
+						<span id="banner-monthly" class="rounded-lg bg-primary px-3 py-1 text-sm font-extrabold text-white">
+							£0.00 / mo
+						</span>
+					</div>
+					
+					<div class="mt-3 grid grid-cols-2 gap-2 text-xs text-neutral-700 dark:text-neutral-300 border-t border-primary/15 pt-3">
+						<div>
+							<span class="text-neutral-400">Scheme:</span>
+							<p id="banner-tier" class="font-semibold text-neutral-800 dark:text-neutral-100">Combined</p>
+						</div>
+						<div>
+							<span class="text-neutral-400">Schedule:</span>
+							<p id="banner-freq" class="font-semibold text-neutral-800 dark:text-neutral-100">Monthly</p>
+						</div>
+						<div>
+							<span class="text-neutral-400">Staff Headcount:</span>
+							<p id="banner-headcount" class="font-semibold text-neutral-800 dark:text-neutral-100">12 Employees</p>
+						</div>
+						<div>
+							<span class="text-neutral-400">Per-Run Fee:</span>
+							<p id="banner-runfee" class="font-semibold text-neutral-800 dark:text-neutral-100">£0.00 / run</p>
+						</div>
+					</div>
+
+					<div id="banner-savings-row" class="hidden mt-3 border-t border-primary/15 pt-2 flex items-center justify-between text-xs">
+						<span class="text-emerald-700 dark:text-emerald-300 font-bold flex items-center gap-1">
+							<TrendingDown class="h-3.5 w-3.5" /> Estimated 4% Operator Savings:
+						</span>
+						<span id="banner-savings" class="font-extrabold text-emerald-600 dark:text-emerald-400">
+							Save £0 / yr
+						</span>
+					</div>
+				</div>
+
+				<h3 id="form-heading" class="text-xl font-bold text-neutral-900 dark:text-white mb-1">Tell Us About Your Venue</h3>
+				<p id="form-subheading" class="text-xs text-neutral-500 dark:text-neutral-400 mb-6">
+					Complete this quick form and our specialists will prepare your itemized fixed quote.
 				</p>
 
 				<form class="space-y-4" onsubmit="event.preventDefault(); alert('Thank you! We have received your enquiry and will be in touch within 24 hours with your quote.');">
@@ -186,17 +233,20 @@ import {
 					</div>
 
 					<div>
-						<label for="notes" class="block text-xs font-semibold text-neutral-700 dark:text-neutral-300 mb-1">Additional Notes / Estimated Monthly Tips (Optional)</label>
+						<label for="notes" class="block text-xs font-semibold text-neutral-700 dark:text-neutral-300 mb-1">
+							Additional Notes / Message
+						</label>
 						<textarea
 							id="notes"
 							name="notes"
-							rows="3"
+							rows="5"
 							placeholder="e.g. Current card tip volume, payroll frequency, or any current challenges..."
-							class="w-full rounded-lg border border-neutral-300 bg-white px-3.5 py-2.5 text-sm text-neutral-900 shadow-sm transition-colors focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary dark:border-neutral-700 dark:bg-neutral-800 dark:text-white"
+							class="w-full rounded-lg border border-neutral-300 bg-white px-3.5 py-2.5 text-xs text-neutral-900 shadow-sm transition-colors focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary dark:border-neutral-700 dark:bg-neutral-800 dark:text-white leading-relaxed"
 						></textarea>
 					</div>
 
 					<button
+						id="submit-btn"
 						type="submit"
 						class="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-bold text-white shadow transition-all hover:bg-primary-strong focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
 					>
@@ -208,6 +258,136 @@ import {
 					</p>
 				</form>
 			</div>
+
 		</div>
 	</section>
 </Layout>
+
+<script>
+	// Parse URL Query Parameters on load
+	document.addEventListener("DOMContentLoaded", () => {
+		const params = new URLSearchParams(window.location.search);
+
+		const mainTitle = document.getElementById("page-main-title");
+		const subTitle = document.getElementById("page-sub-title");
+		const formHeading = document.getElementById("form-heading");
+		const formSubheading = document.getElementById("form-subheading");
+		const submitBtn = document.getElementById("submit-btn");
+
+		const serviceSelect = document.getElementById("serviceType") as HTMLSelectElement | null;
+		const headcountSelect = document.getElementById("headcount") as HTMLSelectElement | null;
+		const notesTextarea = document.getElementById("notes") as HTMLTextAreaElement | null;
+
+		const quoteCard = document.getElementById("locked-quote-card");
+		const bannerMonthly = document.getElementById("banner-monthly");
+		const bannerTier = document.getElementById("banner-tier");
+		const bannerFreq = document.getElementById("banner-freq");
+		const bannerHeadcount = document.getElementById("banner-headcount");
+		const bannerRunfee = document.getElementById("banner-runfee");
+		const bannerSavingsRow = document.getElementById("banner-savings-row");
+		const bannerSavings = document.getElementById("banner-savings");
+
+		// Scenario A: Full Quote Carry-Over from Calculator
+		if (params.get("quote") === "true") {
+			const tier = params.get("tier") || "combined";
+			const tierName = params.get("tierName") || "Combined Tronc & Payroll";
+			const headcount = parseInt(params.get("headcount") || "12", 10);
+			const freqName = params.get("freqName") || "Monthly";
+			const runFee = params.get("runFee") || "0.00";
+			const monthly = params.get("monthly") || "0.00";
+			const tips = params.get("tips");
+			const savings = params.get("savings");
+
+			// 1. Contextualize titles for arriving with a quote
+			if (mainTitle) {
+				mainTitle.innerHTML = 'Lock In Your <span class="text-primary">Fixed-Fee Agreement</span>';
+			}
+			if (subTitle) {
+				subTitle.textContent = "Review your calculator estimate below, confirm your contact details, and our onboarding team will prepare your formal setup agreement.";
+			}
+			if (formHeading) {
+				formHeading.textContent = "Confirm Your Details";
+			}
+			if (formSubheading) {
+				formSubheading.textContent = "We have pre-filled your quote breakdown in the message below. Fill in your contact info to submit your enquiry.";
+			}
+			if (submitBtn) {
+				submitBtn.innerHTML = 'Confirm & Request Onboarding Pack <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>';
+			}
+
+			// 2. Show & Populate Banner Card
+			if (quoteCard && bannerMonthly && bannerTier && bannerFreq && bannerHeadcount && bannerRunfee) {
+				quoteCard.classList.remove("hidden");
+				bannerMonthly.textContent = `£${monthly} / mo`;
+				bannerTier.textContent = tierName;
+				bannerFreq.textContent = freqName;
+				bannerHeadcount.textContent = `${headcount} Employees`;
+				bannerRunfee.textContent = `£${runFee} / run`;
+
+				if (savings && savings !== "0" && bannerSavingsRow && bannerSavings) {
+					bannerSavingsRow.classList.remove("hidden");
+					bannerSavings.textContent = `Save £${parseInt(savings, 10).toLocaleString()} / yr`;
+				}
+			}
+
+			// 3. Select appropriate dropdown options
+			if (serviceSelect) {
+				if (tier === "tronc") serviceSelect.value = "tronc";
+				else if (tier === "paye") serviceSelect.value = "payroll";
+				else serviceSelect.value = "combined";
+			}
+
+			if (headcountSelect) {
+				if (headcount <= 15) headcountSelect.value = "1-15";
+				else if (headcount <= 35) headcountSelect.value = "16-35";
+				else if (headcount <= 75) headcountSelect.value = "36-75";
+				else headcountSelect.value = "76+";
+			}
+
+			// 4. Populate Message Box
+			if (notesTextarea) {
+				let message = `I have locked in my quote of £${monthly} per month (net of VAT) for the following setup:\n\n`;
+				message += `• Service Tier: ${tierName}\n`;
+				message += `• Team Size: ${headcount} employees\n`;
+				message += `• Pay Frequency: ${freqName}\n`;
+				message += `• Fee Per Pay Run: £${runFee} (billed in 12 equal monthly instalments)\n`;
+				if (tips) {
+					message += `• Estimated Tips per Period: £${parseInt(tips, 10).toLocaleString()}\n`;
+				}
+				if (savings && savings !== "0") {
+					message += `• Estimated Savings vs 4% Operators: ~£${parseInt(savings, 10).toLocaleString()} / year\n`;
+				}
+				message += `\nPlease send over our onboarding pack and scheme setup agreement.`;
+
+				notesTextarea.value = message;
+			}
+			return;
+		}
+
+		// Scenario B: Query from Comparison Table or Package Links (e.g. ?package=tronc)
+		const pkg = params.get("package") || params.get("tier");
+		if (pkg && serviceSelect) {
+			if (pkg.includes("tronc")) {
+				serviceSelect.value = "tronc";
+				if (notesTextarea) notesTextarea.value = "I would like to enquire about your independent TroncMaster services (fixed monthly fee with zero commission on tips) for our venue.";
+			} else if (pkg.includes("payroll") || pkg.includes("paye")) {
+				serviceSelect.value = "payroll";
+				if (notesTextarea) notesTextarea.value = "I would like to enquire about your hospitality payroll bureau services for our venue.";
+			} else {
+				serviceSelect.value = "combined";
+				if (notesTextarea) notesTextarea.value = "I would like to enquire about your Combined Tronc & Payroll scheme for our venue.";
+			}
+		}
+
+		// Scenario C: Custom Enterprise / Multi-Frequency Quote
+		const customType = params.get("customType");
+		if (customType && notesTextarea) {
+			if (customType === "enterprise") {
+				notesTextarea.value = `We are a hospitality venue with 50+ staff (or multi-site operations) looking for a tailored enterprise quote for Tronc and/or Payroll.`;
+				if (headcountSelect) headcountSelect.value = "76+";
+			} else if (customType === "multi-frequency") {
+				notesTextarea.value = `We run multiple payroll schedules (e.g. weekly for front-of-house staff and monthly for management) and need a unified multi-frequency quote.`;
+			}
+		}
+	});
+</script>
