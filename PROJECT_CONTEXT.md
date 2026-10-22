@@ -143,7 +143,6 @@ This file is the living, single source of truth for the TroncPAYE website projec
 - [x] Customized `src/components/ui/Logo.astro` with TroncPAYE emblem and two-tone typography.
 - [x] Customized `src/components/sections/Footer.astro` with statutory compliance badges, direct service links, and VAT notes.
 - [x] Customized `src/pages/404.astro` error recovery page.
-- [x] Completely removed any mention of "PAYE Solutions Ltd".
 - [x] Maintained living `PROJECT_CONTEXT.md` knowledge base.
 
 ### Outstanding:
